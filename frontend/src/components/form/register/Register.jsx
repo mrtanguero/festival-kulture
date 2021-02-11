@@ -1,89 +1,51 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useStyles } from '../form-style';
 import FormInput from '../formcontrols/forminput/FormInput';
 import FormButton from '../formcontrols/formbtn/FormBtn';
 import FormTitle from '../formcontrols/formtitle/FormTitle';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useStyles } from '../form-style';
-import { registerValidation } from './registerValidation';
 
-function Register(props) {
+function Register({ formik }) {
   const classes = useStyles();
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(registerValidation),
-  });
-
-  const submitForm = (data) => {
-    console.log(data);
-  };
+  // const [username, setUsername] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <div className={classes.formContainer}>
       <FormTitle headerVariant='h3' headerType='h1'>
         Registruj se
       </FormTitle>
-      <form
-        className={classes.formRoot}
-        onSubmit={handleSubmit((d) => console.log(d))}
-      >
+
+      <div>
+        <img
+          className={classes.formImg}
+          src='/assets/code_thinking.svg'
+          alt='Code Thinking'
+        />
+      </div>
+
+      <div className={classes.formRoot}>
         <FormInput
-          label='Username'
-          variant='outlined'
-          value={username}
+          label='Korisničko ime'
           icon='user'
           type='text'
           name='username'
-          onChange={(e) => setUsername(e.target.value)}
-          helperText={errors.username?.message}
         />
 
-        <FormInput
-          label='Email'
-          variant='outlined'
-          value={email}
-          icon='email'
-          type='email'
-          name='email'
-          onChange={(e) => setEmail(e.target.value)}
-          helperText={errors.username?.message}
-        />
+        <FormInput label='Email' icon='email' type='email' name='email' />
+
+        <FormInput label='Šifra' icon='lock' type='password' name='password' />
 
         <FormInput
-          label='Password'
-          variant='outlined'
-          value={password}
+          label='Potvrdi Šifru'
           icon='lock'
           type='password'
           name='password'
-          onChange={(e) => setPassword(e.target.value)}
-          helperText={errors.password?.message}
         />
 
-        <FormInput
-          label='Confirm Password'
-          variant='outlined'
-          value={confirmPassword}
-          icon='lock'
-          type='password'
-          name='password'
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          helperText={errors.password?.message}
-        />
-
-        <FormButton
-          type='submit'
-          variant='contained'
-          component='button'
-          color='primary'
-        >
-          Register
-        </FormButton>
-      </form>
+        <FormButton>Register</FormButton>
+      </div>
     </div>
   );
 }

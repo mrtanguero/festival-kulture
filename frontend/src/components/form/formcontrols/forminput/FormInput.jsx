@@ -2,6 +2,7 @@ import React from 'react';
 import { useStyles } from './formInput-style';
 import { TextField, InputAdornment } from '@material-ui/core';
 import { AccountCircle, Lock, Email } from '@material-ui/icons';
+import { useField } from 'formik';
 
 const iconSwitch = (iconName) => {
   switch (iconName.toLowerCase()) {
@@ -16,28 +17,31 @@ const iconSwitch = (iconName) => {
   }
 };
 
-function FormInput(props) {
-  const { label, variant, value, icon, type, name, ...rest } = props;
+function FormInput({ name, icon, type, ...rest }) {
   const classes = useStyles();
 
-  return (
-    <TextField
-      className={classes.inputRoot}
-      label={label}
-      variant={variant}
-      defaultValue={value}
-      inputProps={{
-        startAdornment: (
-          <InputAdornment position='start'>
-            {() => iconSwitch(icon)}
-          </InputAdornment>
-        ),
-        type: { type },
-        name: { name },
-      }}
-      {...rest}
-    />
-  );
+  const [field, meta] = useField(name);
+
+  const inputConfig = {
+    ...field,
+    ...rest,
+    variant: 'outlined',
+    inputProps: {
+      startAdornment: (
+        <InputAdornment position='start'>
+          {() => iconSwitch(icon)}
+        </InputAdornment>
+      ),
+      type: { type },
+    },
+  };
+
+  if (meta && meta.touched && meta.error) {
+    inputConfig.error = true;
+    inputConfig.helperText = meta.error;
+  }
+
+  return <TextField className={classes.inputRoot} {...inputConfig} />;
 }
 
 export default FormInput;

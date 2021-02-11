@@ -1,17 +1,16 @@
 import * as yup from 'yup';
 
-export const registerValidation = yup.object().shape({
+export const FORM_VALIDATION = yup.object().shape({
     username: yup.string()
-        .required('Ovo polje je obavezno'),
+      .required('Ovo polje je obavezno'),
     email: yup.string()
-        .email("Email mora biti ispravan")
-        .required("Ovo polje je obavezno"),
+      .email('Email mora biti validan')
+      .required('Ovo polje je obavezno'),
     password: yup.string()
-        .required("Ovo polje je obavezno")
-        .min(8, "Šifra mora imati između 8 i 16 znakova")
-        .max(16, "Šifra mora imati manje od 16 znakova"),
+      .min(8, 'Šifra mora imati barem 8 karaktera')
+      .max(16, 'Šifra ne može imati preko 16 karaktera')
+      .required('Ovo polje je obavezno'),
     confirmPassword: yup.string()
-        .required("Ovo polje je obavezno")
-        .oneOf([yup.ref('password')], 'Šifre se moraju podudarati')
-
-})
+      .required("Ovo polje je obavezno")
+      .oneOf([yup.ref('password')], 'Šifre se moraju podudarati')
+  })
