@@ -1,8 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Login from './login/Login';
 import Register from './register/Register';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
+import { Typography } from '@material-ui/core';
+import GoogleLogin from './google_login/GoogleLogin';
+import { useStyles } from './form-style';
 
 const INITIAL_VAlUES = {
   username: '',
@@ -29,17 +33,27 @@ const FORM_VALIDATION = yup.object().shape({
 });
 
 function Forms(props) {
+  const classes = useStyles();
   return (
-    <Formik
-      initialValues={{
-        ...INITIAL_VAlUES,
-      }}
-      validationSchema={FORM_VALIDATION}
-    >
-      <Form>
-        <Login />
-      </Form>
-    </Formik>
+    <div className={classes.formRoot}>
+      <Formik
+        initialValues={{
+          ...INITIAL_VAlUES,
+        }}
+        validationSchema={FORM_VALIDATION}
+      >
+        <Form>
+          <Login />
+        </Form>
+      </Formik>
+
+      <Typography component='h3' variant='h6'>
+        ili
+      </Typography>
+      <div>
+        <GoogleLogin />
+      </div>
+    </div>
   );
 }
 

@@ -14,6 +14,7 @@ const FormButton = (props) => {
   };
 
   const btnConfig = {
+    style: { marginTop: '15px' },
     type: 'submit',
     component: 'button',
     variant: 'contained',
@@ -22,11 +23,7 @@ const FormButton = (props) => {
     ...rest,
   };
 
-  return (
-    <Button className={classes.formBtn} {...btnConfig}>
-      {children.toUpperCase()}
-    </Button>
-  );
+  return <Button {...btnConfig}>{children.toUpperCase()}</Button>;
 };
 
 export default FormButton;

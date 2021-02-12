@@ -13,10 +13,6 @@ function Register({ formik }) {
 
   return (
     <div className={classes.formContainer}>
-      <FormTitle headerVariant='h3' headerType='h1'>
-        Registruj se
-      </FormTitle>
-
       <div>
         <img
           className={classes.formImg}
@@ -25,7 +21,11 @@ function Register({ formik }) {
         />
       </div>
 
-      <div className={classes.formRoot}>
+      <FormTitle headerVariant='h3' headerType='h1'>
+        Registruj se
+      </FormTitle>
+
+      <div className={classes.form}>
         <FormInput
           label='Korisničko ime'
           icon='user'

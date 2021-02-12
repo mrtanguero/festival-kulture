@@ -1,20 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-
-const colors = {
-    formBtn: ''
-}
-
 export const useStyles = makeStyles({
+    formRoot: {
+        maxWidth: '400px',
+        margin: 'auto',
+        textAlign: 'center',
+
+        '& h3': {
+            marginTop: '5%'
+        }
+    },
+
     formContainer:{
         display: 'flex',
         flexDirection: 'column',
-        width: '300px',
-        margin: 'auto',
-
     },
 
-    formRoot: {
+    form: {
         display: 'flex',
         flexDirection: 'column'
 
@@ -22,5 +24,12 @@ export const useStyles = makeStyles({
 
     formImg: {
         width: '100%'
+    },
+
+    googleIcon: {
+        '& img': {
+            width: '10%',
+            marginTop: '5%'
+        }
     }
 })

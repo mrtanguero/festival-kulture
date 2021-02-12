@@ -11,10 +11,6 @@ function Login(props) {
 
   return (
     <div className={classes.formContainer}>
-      <FormTitle headerVariant='h2' headerType='h2'>
-        Prijavi se
-      </FormTitle>
-
       <div>
         <img
           className={classes.formImg}
@@ -23,7 +19,11 @@ function Login(props) {
         />
       </div>
 
-      <div className={classes.formRoot}>
+      <FormTitle headerVariant='h2' headerType='h2'>
+        Prijavi se
+      </FormTitle>
+
+      <div className={classes.form}>
         <FormInput
           label='Korisničko ime'
           icon='user'
