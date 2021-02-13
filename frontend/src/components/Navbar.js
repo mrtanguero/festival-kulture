@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tab: {
     fontWeight: 'bold',
+    minWidth: 10,
+    marginLeft: '25px',
   },
 }));
 
@@ -20,9 +23,21 @@ export default function Navbar() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
-  console.log(classes);
+  useEffect(() => {
+    if (window.location.pathname === '/' && value !== 0) {
+      setValue(0);
+    } else if (window.location.pathname === '/aboutus' && value !== 1) {
+      setValue(1);
+    } else if (window.location.pathname === '/login' && value !== 2) {
+      setValue(2);
+    } else if (window.location.pathname === '/register' && value !== 3) {
+      setValue(3);
+    } else if (window.location.pathname === '/dashboard' && value !== 4) {
+      setValue(4);
+    }
+  }, [value]);
 
-  const handleChange = (_, value) => {
+  const handleChange = (e, value) => {
     setValue(value);
   };
 
@@ -36,7 +51,12 @@ export default function Navbar() {
             value={value}
             onChange={handleChange}
           >
-            <Tab className={classes.tab} label="Home" component={Link} to="/" />
+            <Tab
+              className={classes.tab}
+              label="Događaji"
+              component={Link}
+              to="/"
+            />
             <Tab
               className={classes.tab}
               label="O nama"

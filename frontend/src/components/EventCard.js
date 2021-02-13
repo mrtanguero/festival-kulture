@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +34,8 @@ const useStyles = makeStyles({
 
 export default function EventCard(props) {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
   const {
     userName,
     userImgUrl,
@@ -40,6 +44,14 @@ export default function EventCard(props) {
     eventCategory,
     eventDescription,
   } = props.data;
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Card className={classes.root}>
@@ -55,9 +67,26 @@ export default function EventCard(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <React.Fragment>
+            <IconButton
+              aria-controls="edit-menu"
+              aria-haspopup="true"
+              aria-label="edit-menu"
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="edit-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Edit</MenuItem>
+              <MenuItem onClick={handleClose}>Delete</MenuItem>
+            </Menu>
+          </React.Fragment>
         }
         title={<strong>{eventName}</strong>}
         subheader={eventCategory}
