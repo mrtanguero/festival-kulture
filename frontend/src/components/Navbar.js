@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/icons/Menu';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles((theme) => ({
   tabsContainer: {
@@ -17,11 +24,34 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 10,
     marginLeft: '25px',
   },
+  drawerIconContainer: {
+    marginLeft: 'auto',
+  },
+  drawerIcon: {
+    height: '30px',
+    width: '30px',
+    color: 'white',
+  },
+  drawer: {
+    backgroundColor: '#ec2957',
+    color: 'white',
+  },
+  drawerItem: {
+    opacity: 0.7,
+  },
+  drawerItemSelected: {
+    opacity: 1,
+  },
 }));
 
 export default function Navbar() {
+  const theme = useTheme();
   const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   const [value, setValue] = useState(0);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   useEffect(() => {
     if (window.location.pathname === '/' && value !== 0) {
@@ -41,42 +71,136 @@ export default function Navbar() {
     setValue(value);
   };
 
+  const tabs = (
+    <Tabs
+      className={classes.tabsContainer}
+      value={value}
+      onChange={handleChange}
+    >
+      <Tab className={classes.tab} label="Događaji" component={Link} to="/" />
+      <Tab
+        className={classes.tab}
+        label="O nama"
+        component={Link}
+        to="/aboutus"
+      />
+      <Tab className={classes.tab} label="Login" component={Link} to="/login" />
+      <Tab
+        className={classes.tab}
+        label="Registracija"
+        component={Link}
+        to="/register"
+      />
+      <Tab className={classes.tab} label="Profil" />
+    </Tabs>
+  );
+
+  const drawer = (
+    <React.Fragment>
+      <SwipeableDrawer
+        anchor="right"
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+        classes={{ paper: classes.drawer }}
+      >
+        <List disablePadding>
+          <ListItem
+            className={
+              value === 0 ? classes.drawerItemSelected : classes.drawerItem
+            }
+            divider
+            button
+            onClick={() => {
+              setValue(0);
+              setOpenDrawer(false);
+            }}
+            component={Link}
+            to="/"
+            selected={value === 0}
+          >
+            <ListItemText>Događaji</ListItemText>
+          </ListItem>
+          <ListItem
+            className={
+              value === 1 ? classes.drawerItemSelected : classes.drawerItem
+            }
+            divider
+            button
+            onClick={() => {
+              setValue(1);
+              setOpenDrawer(false);
+            }}
+            component={Link}
+            to="/aboutus"
+            selected={value === 1}
+          >
+            <ListItemText>O nama</ListItemText>
+          </ListItem>
+          <ListItem
+            className={
+              value === 2 ? classes.drawerItemSelected : classes.drawerItem
+            }
+            divider
+            button
+            onClick={() => {
+              setValue(2);
+              setOpenDrawer(false);
+            }}
+            component={Link}
+            to="/login"
+            selected={value === 2}
+          >
+            <ListItemText>Login</ListItemText>
+          </ListItem>
+          <ListItem
+            className={
+              value === 3 ? classes.drawerItemSelected : classes.drawerItem
+            }
+            divider
+            button
+            onClick={() => {
+              setValue(3);
+              setOpenDrawer(false);
+            }}
+            component={Link}
+            to="/register"
+            selected={value === 3}
+          >
+            <ListItemText>Registracija</ListItemText>
+          </ListItem>
+          <ListItem
+            className={
+              value === 4 ? classes.drawerItemSelected : classes.drawerItem
+            }
+            divider
+            button
+            onClick={() => setOpenDrawer(false)}
+            component={Link}
+            to="/dashboard"
+            selected={value === 4}
+          >
+            <ListItemText>Profil</ListItemText>
+          </ListItem>
+        </List>
+      </SwipeableDrawer>
+      <IconButton
+        className={classes.drawerIconContainer}
+        onClick={() => setOpenDrawer(!openDrawer)}
+      >
+        <Menu className={classes.drawerIcon} />
+      </IconButton>
+    </React.Fragment>
+  );
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
         <Toolbar>
           <Typography variant="h6">Logo</Typography>
-          <Tabs
-            className={classes.tabsContainer}
-            value={value}
-            onChange={handleChange}
-          >
-            <Tab
-              className={classes.tab}
-              label="Događaji"
-              component={Link}
-              to="/"
-            />
-            <Tab
-              className={classes.tab}
-              label="O nama"
-              component={Link}
-              to="/aboutus"
-            />
-            <Tab
-              className={classes.tab}
-              label="Login"
-              component={Link}
-              to="/login"
-            />
-            <Tab
-              className={classes.tab}
-              label="Registracija"
-              component={Link}
-              to="/register"
-            />
-            <Tab className={classes.tab} label="Profil" />
-          </Tabs>
+          {matches ? drawer : tabs}
         </Toolbar>
       </AppBar>
     </div>
