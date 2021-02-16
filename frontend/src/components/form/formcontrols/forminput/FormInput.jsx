@@ -26,7 +26,7 @@ function FormInput({ name, icon, type, ...rest }) {
     ...field,
     ...rest,
     variant: 'outlined',
-    type: { type }
+    type
   };
 
   if (meta && meta.touched && meta.error) {
