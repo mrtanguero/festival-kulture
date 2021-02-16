@@ -26,14 +26,7 @@ function FormInput({ name, icon, type, ...rest }) {
     ...field,
     ...rest,
     variant: 'outlined',
-    inputProps: {
-      startAdornment: (
-        <InputAdornment position='start'>
-          {() => iconSwitch(icon)}
-        </InputAdornment>
-      ),
-      type: { type },
-    },
+    type: { type }
   };
 
   if (meta && meta.touched && meta.error) {
@@ -41,7 +34,11 @@ function FormInput({ name, icon, type, ...rest }) {
     inputConfig.helperText = meta.error;
   }
 
-  return <TextField className={classes.inputRoot} {...inputConfig} />;
+  return <TextField className={classes.inputRoot} {...inputConfig} InputProps={{
+        startAdornment: (
+          <InputAdornment position='start'>{iconSwitch(icon)}</InputAdornment>
+        ),
+      }}/>;
 }
 
 export default FormInput;
