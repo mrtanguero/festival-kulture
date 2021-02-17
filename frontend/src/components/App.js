@@ -1,5 +1,6 @@
 import React from 'react';
+import Forms from './form/Forms'
 
 export default function App() {
-  return <div>Ovo je naša single-page app.</div>;
+  return <Forms />
 }
