@@ -173,6 +173,10 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
+  googleLogin: {
+    marginTop: '20px',
+  },
+
   '@media (max-width: 870px)': {
     formRoot: {
       minHeight: '800px',

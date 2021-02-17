@@ -33,7 +33,6 @@ function FormInput({ name, icon, type, ...rest }) {
 
   return (
     <TextField
-      m={2}
       {...inputConfig}
       InputProps={{
         startAdornment: (

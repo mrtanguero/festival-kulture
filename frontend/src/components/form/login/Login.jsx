@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 import FormButton from '../formcontrols/formbtn/FormBtn';
 import FormInput from '../formcontrols/forminput/FormInput';
 import { Form } from 'formik';
+import GoogleLogin from 'react-google-login';
 
 function Login(props) {
   const classes = useStyles();
@@ -33,6 +34,9 @@ function Login(props) {
       />
 
       <FormButton>Prijavi se</FormButton>
+      <div className={classes.googleLogin}>
+        <GoogleLogin />
+      </div>
     </Form>
   );
 }
