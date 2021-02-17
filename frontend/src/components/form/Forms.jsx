@@ -1,12 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import Login from './login/Login';
 import Register from './register/Register';
-import { Formik, Form } from 'formik';
-import * as yup from 'yup';
-import { Typography } from '@material-ui/core';
 import GoogleLogin from './google_login/GoogleLogin';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import { useStyles } from './form-style';
+import FormSlider from './formcontrols/slider/FormSlider';
 
 const INITIAL_VAlUES = {
   username: '',
@@ -33,27 +32,29 @@ const FORM_VALIDATION = yup.object().shape({
 });
 
 function Forms(props) {
+  const [formMode, setFormMode] = useState('');
   const classes = useStyles();
-  return (
-    <div className={classes.formRoot}>
-      <Formik
-        initialValues={{
-          ...INITIAL_VAlUES,
-        }}
-        validationSchema={FORM_VALIDATION}
-      >
-        <Form>
-          <Login />
-        </Form>
-      </Formik>
 
-      <Typography component='h3' variant='h6'>
-        ili
-      </Typography>
-      <div>
-        <GoogleLogin />
+  const handleClick = (value) => {
+    setFormMode(value);
+  };
+  return (
+    <Formik
+      initialValues={{
+        ...INITIAL_VAlUES,
+      }}
+      validationSchema={FORM_VALIDATION}
+    >
+      <div className={`${classes.formRoot} ${formMode}`}>
+        <div className={classes.formsContainer}>
+          <div className={classes.loginRegister}>
+            <Login />
+            <Register />
+          </div>
+        </div>
+        <FormSlider onClick={handleClick} />
       </div>
-    </div>
+    </Formik>
   );
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useStyles } from './formInput-style';
 import { TextField, InputAdornment } from '@material-ui/core';
 import { AccountCircle, Lock, Email } from '@material-ui/icons';
 import { useField } from 'formik';
@@ -18,15 +17,13 @@ const iconSwitch = (iconName) => {
 };
 
 function FormInput({ name, icon, type, ...rest }) {
-  const classes = useStyles();
-
   const [field, meta] = useField(name);
 
   const inputConfig = {
     ...field,
     ...rest,
     variant: 'outlined',
-    type
+    type: { type },
   };
 
   if (meta && meta.touched && meta.error) {
@@ -34,11 +31,17 @@ function FormInput({ name, icon, type, ...rest }) {
     inputConfig.helperText = meta.error;
   }
 
-  return <TextField className={classes.inputRoot} {...inputConfig} InputProps={{
+  return (
+    <TextField
+      m={2}
+      {...inputConfig}
+      InputProps={{
         startAdornment: (
           <InputAdornment position='start'>{iconSwitch(icon)}</InputAdornment>
         ),
-      }}/>;
+      }}
+    />
+  );
 }
 
 export default FormInput;

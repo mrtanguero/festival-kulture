@@ -1,11 +1,18 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { useFormikContext } from 'formik';
-import { useStyles } from './formBtn-style';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  formBtn: {
+    width: '50%',
+    marginTop: '15px',
+  },
+});
 
 const FormButton = (props) => {
-  const { variant, children, ...rest } = props;
   const classes = useStyles();
+  const { variant, children, ...rest } = props;
 
   const { submitForm } = useFormikContext();
 
@@ -14,7 +21,7 @@ const FormButton = (props) => {
   };
 
   const btnConfig = {
-    style: { marginTop: '15px' },
+    className: classes.formBtn,
     type: 'submit',
     component: 'button',
     variant: 'contained',

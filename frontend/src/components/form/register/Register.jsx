@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useStyles } from '../form-style';
+import { Typography } from '@material-ui/core';
 import FormInput from '../formcontrols/forminput/FormInput';
 import FormButton from '../formcontrols/formbtn/FormBtn';
-import FormTitle from '../formcontrols/formtitle/FormTitle';
+import { Form } from 'formik';
 
-function Register({ formik }) {
+function Register() {
   const classes = useStyles();
   // const [username, setUsername] = useState('');
   // const [email, setEmail] = useState('');
@@ -12,41 +13,45 @@ function Register({ formik }) {
   // const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
-    <div className={classes.formContainer}>
-      <div>
-        <img
-          className={classes.formImg}
-          src='/assets/code_thinking.svg'
-          alt='Code Thinking'
-        />
-      </div>
+    <Form className={`${classes.form} ${classes.register}`}>
+      <Typography className={classes.formTitle} variant='h2' component='h2'>
+        Prijavi se
+      </Typography>
 
-      <FormTitle headerVariant='h3' headerType='h1'>
-        Registruj se
-      </FormTitle>
+      <FormInput
+        className={classes.inputRoot}
+        label='Korisničko ime'
+        icon='user'
+        type='text'
+        name='username'
+      />
 
-      <div className={classes.form}>
-        <FormInput
-          label='Korisničko ime'
-          icon='user'
-          type='text'
-          name='username'
-        />
+      <FormInput
+        className={classes.inputRoot}
+        label='Email'
+        icon='email'
+        type='email'
+        name='email'
+      />
 
-        <FormInput label='Email' icon='email' type='email' name='email' />
+      <FormInput
+        className={classes.inputRoot}
+        label='Šifra'
+        icon='lock'
+        type='password'
+        name='password'
+      />
 
-        <FormInput label='Šifra' icon='lock' type='password' name='password' />
+      <FormInput
+        className={classes.inputRoot}
+        label='Potvrdi Šifru'
+        icon='lock'
+        type='password'
+        name='password'
+      />
 
-        <FormInput
-          label='Potvrdi Šifru'
-          icon='lock'
-          type='password'
-          name='password'
-        />
-
-        <FormButton>Register</FormButton>
-      </div>
-    </div>
+      <FormButton>Register</FormButton>
+    </Form>
   );
 }
 
