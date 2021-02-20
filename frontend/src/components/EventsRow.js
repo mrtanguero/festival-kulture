@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   event: {
     display: 'flex',
     alignItems: 'stretch',
+    backgroundColor: 'yellow',
     [theme.breakpoints.down('xs')]: {
       justifyContent: 'center',
     },

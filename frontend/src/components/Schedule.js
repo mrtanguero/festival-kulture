@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid'
 // import { makeStyles } from '@material-ui/core';
 
 import EventsRow from './EventsRow';
@@ -30,17 +29,20 @@ export default function Schedule({ data, day }) {
   console.log(dataRows);
 
   const renderEvents = () => {
-    console.log('Render events function invoked');
-    return dataRows.map((row, i ) => {
+    return dataRows.map((row, i) => {
       return (
-        <Grid key={i} item>
+        // <Grid key={i} item>
           <EventsRow events={row} />
-        </Grid>
+        // </Grid>
       );
     });
   };
 
-  return <Grid container direction="column">
+  return (
+  // <Grid container direction="column">
+  <React.Fragment>
     {renderEvents()}
-  </Grid>;
+  </React.Fragment>
+  // </Grid>
+  );
 }
