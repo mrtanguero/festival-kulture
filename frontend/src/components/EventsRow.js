@@ -11,23 +11,18 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 'auto',
     maxWidth: '1200px',
     width: '90%',
-    borderBottom: '1px solid lightgrey',
+    padding: '25px 0',
+    borderBottom: '1px solid #dddddd',
   },
-  eventsContainer: {
-    // flexWrap: 'nowrap',
-    // width: '90%',
-  },
+
   event: {
     display: 'flex',
     alignItems: 'stretch',
-    backgroundColor: 'yellow',
     [theme.breakpoints.down('xs')]: {
       justifyContent: 'center',
     },
   },
-  timeFrameContainer: {
-    // minWidth: '4rem',
-  },
+
 }));
 
 export default function EventsRow({ events }) {
