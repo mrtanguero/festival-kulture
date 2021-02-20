@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function EventCard(props) {
+export default function EventCard({ data }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -43,7 +43,7 @@ export default function EventCard(props) {
     eventImageUrl,
     eventCategory,
     eventDescription,
-  } = props.data;
+  } = data;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

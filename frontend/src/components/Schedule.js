@@ -1,15 +1,46 @@
 import React from 'react';
-import EventCard from './EventCard';
+
+import Grid from '@material-ui/core/Grid'
+// import { makeStyles } from '@material-ui/core';
+
 import EventsRow from './EventsRow';
 
-import { testData } from '../temp/testData';
+// const useStyles = makeStyles((theme) => ({
+//   root: {},
+// }));
 
-export default function Schedule(props) {
-  const { data } = props;
+export default function Schedule({ data, day }) {
+  // const classes = useStyles();
 
-  return (
-    <div>
-      <EventCard data={testData[0]} />
-    </div>
-  );
+  const makeRows = (data, day) => {
+    const rows = [];
+    data
+      .filter((event) => event.day === day)
+      .forEach((event) => {
+        if (rows[`${event.time}`]) {
+          rows[`${event.time}`].push(event);
+        } else {
+          rows[`${event.time}`] = [event];
+        }
+      });
+    return rows;
+  };
+
+  const dataRows = makeRows(data, day);
+  console.log(dataRows);
+
+  const renderEvents = () => {
+    console.log('Render events function invoked');
+    return dataRows.map((row, i ) => {
+      return (
+        <Grid key={i} item>
+          <EventsRow events={row} />
+        </Grid>
+      );
+    });
+  };
+
+  return <Grid container direction="column">
+    {renderEvents()}
+  </Grid>;
 }

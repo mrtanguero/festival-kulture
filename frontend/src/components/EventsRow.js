@@ -1,14 +1,70 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core';
 import EventCard from './EventCard';
 
-export default function EventsRow({ events }) {
-  let eventsList = <Grid item>{events[0].time}</Grid>;
-  eventsList = eventsList.push(
-    ...events.map((event) => {
-      return <Grid item component={EventCard(event)} />;
-    })
-  );
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 16,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: '1200px',
+    width: '90%',
+    borderBottom: '1px solid lightgrey',
+  },
+  eventsContainer: {
+    // flexWrap: 'nowrap',
+    // width: '90%',
+  },
+  event: {
+    display: 'flex',
+    alignItems: 'stretch',
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+    },
+  },
+  timeFrameContainer: {
+    // minWidth: '4rem',
+  },
+}));
 
-  return <Grid container>{eventsList}</Grid>;
+export default function EventsRow({ events }) {
+  const classes = useStyles();
+  console.log(events);
+
+  return (
+    <Grid
+      className={classes.root}
+      direction="row"
+      justify="center"
+      alignItems="center"
+      container
+      spacing={2}
+    >
+      <Grid item className={classes.timeFrameContainer}>
+        <Typography align="left" variant="h6">
+          {events[0].time}
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        container
+        spacing={2}
+        xs={12}
+        sm={10}
+        className={classes.eventsContainer}
+      >
+        <Grid item xs={12} sm={4} className={classes.event}>
+          <EventCard data={events[0]} />
+        </Grid>
+        <Grid item xs={12} sm={4} className={classes.event}>
+          {events[1] ? <EventCard data={events[1]} /> : null}
+        </Grid>
+        <Grid item xs={12} sm={4} className={classes.event}>
+          {events[2] ? <EventCard data={events[2]} /> : null}
+        </Grid>
+      </Grid>
+    </Grid>
+  );
 }
