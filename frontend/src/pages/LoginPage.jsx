@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
-import FormikControl from '../components/form_controls/FormikControl';
+import Input from '../components/form_controls/input/Input';
 import GoogleeLogin from '../components/google_login/GoogleLogin';
 import FormAvatar from '../components/form_controls/avatar/FormAvatar';
 
@@ -46,16 +46,14 @@ function Login(props) {
           {(formik) => {
             return (
               <Form>
-                <FormikControl
-                  control='input'
+                <Input
                   type='text'
                   label='Korisničko ime'
                   name='username'
                   icon='user'
                 />
 
-                <FormikControl
-                  control='input'
+                <Input
                   type='password'
                   label='Šifra'
                   name='password'

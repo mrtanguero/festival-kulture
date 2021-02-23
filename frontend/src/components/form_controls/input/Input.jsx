@@ -22,12 +22,12 @@ function Input(props) {
 
   const inputConfig = {
     label,
-    ...field,
-    ...rest,
     id: name,
-    name: name,
+    name,
     variant: 'outlined',
     margin: 'normal',
+    ...field,
+    ...rest,
   };
 
   if (meta && meta.touched && meta.error) {
