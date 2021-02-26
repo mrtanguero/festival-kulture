@@ -14,8 +14,19 @@ const INITIAL_VALUES = {
 };
 
 const LOGIN_VALIDATION = yup.object({
-  username: yup.string().required('Korisničko ime je obavezno'),
-  password: yup.string().required('Morate unijeti šifru'),
+  username: yup
+    .string()
+    .max(
+      16,
+      ({ max, value }) =>
+        `Imate još ${max - value.length} karaktera na raspolaganju`
+    )
+    .required('Korisničko ime je obavezno'),
+  password: yup
+    .string()
+    .min(8, 'Šifra je prekratka, minimum 8 karaktera')
+    .max(16, 'Šifra je predugačka, maximum 16 karaktera')
+    .required('Morate unijeti šifru'),
 });
 
 function Login(props) {
@@ -25,6 +36,7 @@ function Login(props) {
     // console.log(values, onSubmitProps);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
+    // Home page after valid login
   };
 
   return (

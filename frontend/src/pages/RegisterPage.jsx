@@ -18,7 +18,6 @@ const INITIAL_VALUES = {
 const PASSWORD_CONFIG = {
   lowercase: '/(?=.*[a-z])/',
   uppercase: '/?=.*[A-Z])/',
-  numericValue: '/?=.*[0-9]/',
 };
 
 const REGISTER_VALIDATION = yup.object({
@@ -27,14 +26,30 @@ const REGISTER_VALIDATION = yup.object({
     .string()
     .lowercase('Email unesite malim slovima')
     .email('Email mora biti validan')
-    .required('Email obavezan'),
+    .required('Email je obavezan'),
   password: yup
     .string()
-    .matches(PASSWORD_CONFIG.lowercase, 'Morate unijeti malo slovo')
-    .matches(PASSWORD_CONFIG.uppercase, 'Morate unijeti veliko slovo')
-    .matches(PASSWORD_CONFIG.numericValue, 'Morate unijeti cifru')
-    .min(8, 'Šifra mora imati između 8 i 16 znakova')
-    .max(16, 'Šifra može imati najviše 16 znakova')
+    .matches('^(?=.*[a-z])', 'Šira mora imati malo slovo')
+    .matches('^(?=.*[A-Z])', 'Šifra mora imati veliko slovo')
+    .matches('^(?=.*[0-9])', 'Šifra mora imati broj')
+    .matches(
+      '^(?=.*[@$!%*#?&])',
+      'Šifra mora imati specijalni karakter (@$!%*#?&)'
+    )
+    .min(
+      8,
+      ({ min, value }) =>
+        `Šifa mora imati minimum 8 znakova, imate još ${
+          min - value.length
+        } znakova`
+    )
+    .max(
+      16,
+      ({ max, value }) =>
+        `Šifra može imati najviše 16 znakova, imate ${
+          value.length - max
+        } znakova više`
+    )
     .required('Šifra je obavezna'),
   confirmPassword: yup
     .string()

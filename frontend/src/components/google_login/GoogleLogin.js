@@ -1,6 +1,7 @@
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import GoogleLogin from 'react-google-login';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,7 @@ const googleClientID =
   '83238091984-pa9q29a4gjag1iumdn1ggkfapgriam6t.apps.googleusercontent.com';
 
 function GoogleeLogin() {
+  const history = useHistory();
   const classes = useStyles();
   const responseGoogle = (response) => {
     console.log(response);
