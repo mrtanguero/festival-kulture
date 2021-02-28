@@ -13,6 +13,12 @@ const INITIAL_VALUES = {
   password: '',
 };
 
+const PASSWORD_CONFIG = {
+  lowercase: '^(?=.*[a-z])',
+  uppercase: '^(?=.*[A-Z])',
+  number: '^(?=.*[0-9])',
+};
+
 const LOGIN_VALIDATION = yup.object({
   username: yup
     .string()
@@ -24,8 +30,25 @@ const LOGIN_VALIDATION = yup.object({
     .required('Korisničko ime je obavezno'),
   password: yup
     .string()
-    .min(8, 'Šifra je prekratka, minimum 8 karaktera')
-    .max(16, 'Šifra je predugačka, maximum 16 karaktera')
+    .matches(PASSWORD_CONFIG.lowercase, 'Šira mora imati malo slovo')
+    .matches(PASSWORD_CONFIG.uppercase, 'Šifra mora imati veliko slovo')
+    .matches(PASSWORD_CONFIG.number, 'Šifra mora imati broj')
+    .matches(
+      '^(?=.*[@$!%*#?&])',
+      'Šifra mora imati specijalni karakter (@$!%*#?&)'
+    )
+    .min(
+      8,
+      ({ min, value }) =>
+        `Šifa mora imati minimum 8 znakova, još ${min - value.length} `
+    )
+    .max(
+      16,
+      ({ max, value }) =>
+        `Šifra može imati najviše 16 znakova, unijeli ste ${
+          value.length - max
+        } više`
+    )
     .required('Morate unijeti šifru'),
 });
 

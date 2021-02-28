@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField } from 'formik';
 import { InputAdornment, TextField } from '@material-ui/core';
-import { AccountCircle, Lock, Email } from '@material-ui/icons';
+import { AccountCircle, Lock, Email, Phone, Book } from '@material-ui/icons';
 
 const iconSwitch = (iconName) => {
   switch (iconName.toLowerCase()) {
@@ -11,6 +11,10 @@ const iconSwitch = (iconName) => {
       return <AccountCircle />;
     case 'email':
       return <Email />;
+    case 'phone':
+      return <Phone />;
+    case 'book':
+      return <Book />;
     default:
       break;
   }

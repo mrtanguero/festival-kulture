@@ -5,14 +5,13 @@ const colors = {
   formTitleTxt: 'whitesmoke',
   formAvatarBg: '#3f51b5',
   formAvatarTxt: 'whitesmoke',
-  submitLink: 'green',
 };
 
 export const useStyles = makeStyles((theme) => ({
   paperRoot: {
     padding: '20px',
     width: '380px',
-    margin: '3% auto',
+    margin: '10% auto',
   },
 
   formTitle: {
@@ -35,8 +34,5 @@ export const useStyles = makeStyles((theme) => ({
 
   formRedirect: {
     marginTop: '3%',
-    '& a': {
-      color: colors.submitLink,
-    },
   },
 }));

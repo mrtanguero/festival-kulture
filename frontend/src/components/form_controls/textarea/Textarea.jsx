@@ -1,15 +1,27 @@
 import React from 'react';
-import { Field, ErrorMessage } from 'formik';
+import { TextField } from '@material-ui/core';
+import { useField } from 'formik';
 
 function Textarea(props) {
-  const { label, name, ...rest } = props;
-  return (
-    <div>
-      <label htmlFor={name}>{label}</label>
-      <Field as='textarea' id={name} name={name} {...rest} />
-      <ErrorMessage name={name} />
-    </div>
-  );
+  const { name, ...rest } = props;
+  const [field, meta] = useField(name);
+  const textareaConfig = {
+    name,
+    ...field,
+    ...rest,
+    fullWidth: true,
+    type: 'textarea',
+    multiline: true,
+    rows: 5,
+    variant: 'outlined',
+  };
+
+  if (meta && meta.touched && meta.error) {
+    textareaConfig.error = true;
+    textareaConfig.helperText = meta.error;
+  }
+
+  return <TextField {...textareaConfig} />;
 }
 
 export default Textarea;
