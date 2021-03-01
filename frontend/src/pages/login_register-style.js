@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const colors = {
-  formTitleBg: '#3f51b5',
+  formTitleBg: '#f50057',
   formTitleTxt: 'whitesmoke',
-  formAvatarBg: '#3f51b5',
+  formAvatarBg: '#f50057',
   formAvatarTxt: 'whitesmoke',
+  submitBtn: '#f50057',
 };
 
 export const useStyles = makeStyles((theme) => ({
@@ -30,9 +31,16 @@ export const useStyles = makeStyles((theme) => ({
 
   submitBtn: {
     marginTop: '10px',
+    backgroundColor: colors.submitBtn,
+    color: 'whitesmoke',
+    fontWeight: 600,
   },
 
   formRedirect: {
     marginTop: '3%',
+    '& a': {
+      color: colors.submitBtn,
+      fontWeight: 600,
+    },
   },
 }));

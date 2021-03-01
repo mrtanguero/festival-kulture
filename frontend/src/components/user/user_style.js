@@ -29,4 +29,24 @@ export const useStyles = makeStyles((theme) => ({
   submitBtn: {
     marginTop: '10px',
   },
+
+  fileBtnRoot: {
+    display: 'flex',
+    justifyContent: 'space-beetween',
+    border: '1px solid #bdbdbd',
+    borderRadius: '4px',
+    height: '3.2em',
+
+    '& input': {
+      display: 'none',
+    },
+
+    '& span': {
+      border: 'none',
+      color: '#757575',
+      '&:active': {
+        border: 'none',
+      },
+    },
+  },
 }));

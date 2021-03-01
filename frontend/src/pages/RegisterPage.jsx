@@ -68,7 +68,7 @@ function Register() {
     <Grid style={{ height: '80vh' }}>
       <Paper elevation={10} className={classes.paperRoot}>
         <Grid align='center'>
-          <FormAvatar icon='lock' className={classes.formAvatar} />
+          <FormAvatar icon='circle' className={classes.formAvatar} />
 
           <Typography variant='h4' component='h2' className={classes.formTitle}>
             REGISTRUJ SE
@@ -115,7 +115,6 @@ function Register() {
 
                 <Button
                   type='submit'
-                  color='primary'
                   disabled={!formik.isValid}
                   component='button'
                   variant='contained'

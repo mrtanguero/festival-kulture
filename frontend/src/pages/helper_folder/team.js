@@ -36,7 +36,7 @@ export const team = [
   {
     name: 'JanDe',
     intro:
-      'Poslednji član našega tima nekada se zvao Dejan a mijenja ga nakon povratka iz Japana. Njegov odlazak u Japan je podstakla želja za izučavanje drevne borilačke vještine Ija-i koja je bazirana na brzopoteznom izvlačenju katane. Tu upoznaje prelijepu Šimicu Kaite zbog koje počinje da piše Haiku poeziju. Njegovi stihovi postali su poznati širom svijeta zbog iscjeljujućih svojstava koje ostavljaju na dušu osobe dok ih čita. Najpoznatiji odlomak njegove pjesme Prolazim je ...ja idem, a preko puta, tebe gledam...dršteme',
+      'Poslednji član našega tima nekada se zvao Dejan a mijenja ga nakon povratka iz Japana. Njegov odlazak u Japan je podstakla želja za izučavanje drevne borilačke vještine Ija-i koja je bazirana na brzopoteznom izvlačenju katane. Tu upoznaje prelijepu Šimicu Kaite zbog koje počinje da piše Haiku poeziju. Njegovi stihovi postali su poznati širom svijeta zbog iscjeljujućih svojstava koje ostavljaju na dušu osobe dok ih čita. Najpoznatiji odlomak njegove pjesme Prolazim je ...ja idem, a preko puta, tebe gledam...dršteme.',
     image: JanDe,
   },
 ];

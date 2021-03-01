@@ -98,7 +98,35 @@ function User(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <FileUpload label='Slika profila' name='profileImg' />
+                      <div className={classes.fileBtnRoot}>
+                        <Image style={{ margin: '.5em 0 0 10px ' }} />
+                        <label htmlFor='profileImg'>
+                          <input
+                            name='profileImg'
+                            id='profileImg'
+                            type='file'
+                            onChange={(e) =>
+                              formik.setFieldValue(
+                                'profileImg',
+                                e.target.files[0]
+                              )
+                            }
+                          />
+                          <Button
+                            color='secondary'
+                            variant='outlined'
+                            component='span'
+                            style={{ marginTop: '8px' }}
+                          >
+                            Ubacite fotografiju
+                          </Button>
+                        </label>
+                      </div>
+                      {formik.errors.profileImg && (
+                        <p style={{ color: '#f44336', paddingTop: '2px' }}>
+                          {formik.errors.profileImg}
+                        </p>
+                      )}
                     </Grid>
                     <Grid item xs={12} align='center'>
                       <SubmitBtn children='potvrdi' />

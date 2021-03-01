@@ -69,7 +69,7 @@ function Login(props) {
           <FormAvatar icon='lock' className={classes.formAvatar} />
 
           <Typography variant='h4' component='h2' className={classes.formTitle}>
-            REGISTRUJ SE
+            PRIJAVI SE
           </Typography>
         </Grid>
 
@@ -97,7 +97,6 @@ function Login(props) {
 
                 <Button
                   type='submit'
-                  color='primary'
                   disabled={!formik.isValid}
                   component='button'
                   variant='contained'

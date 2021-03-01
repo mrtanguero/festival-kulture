@@ -2,13 +2,12 @@ import React from 'react';
 import * as yup from 'yup';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import { useStyles } from './user_style';
-import { Grid, Paper, InputAdornment, TextField } from '@material-ui/core';
-import { Image } from '@material-ui/icons';
+import { Grid, Paper, Button } from '@material-ui/core';
+import { ErrorSharp, Image } from '@material-ui/icons';
 import Input from '../form_controls/input/Input';
 import Select from '../form_controls/select/Select';
 import Textarea from '../form_controls/textarea/Textarea';
 import FormTitle from '../form_controls/form_title/FormTitle';
-import FileUpload from '../form_controls/file_upload/FileUpload';
 import SubmitBtn from '../form_controls/submit_button/SubmitBtn';
 
 const EVENT_TIME = {
@@ -35,7 +34,6 @@ const INITIAL_VALUES = {
   eventDay: '',
   eventType: '',
   eventImg: '',
-  // file: undefined,
   eventDescription: '',
 };
 
@@ -90,12 +88,6 @@ function UserEvent(props) {
             onSubmit={handleSubmit}
           >
             {(formik) => {
-              // const handleChange = (event) => {
-              //   const valueName = event.target.files[0];
-              //   console.log(event.currentTarget.files);
-              //   formik.setFieldValue('eventImg', valueName);
-              //   formik.setFieldValue('file', event.target.files[0]);
-              // };
               return (
                 <Form>
                   <Grid container spacing={2}>
@@ -133,40 +125,35 @@ function UserEvent(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      {/* <Field
-                        as={TextField}
-                        name='eventImg'
-                        id='eventImg'
-                        type='file'
-                        variant='outlined'
-                        onChange={(event) => {
-                          return formik.setFieldValue(
-                            'eventImg',
-                            event.target.files[0]
-                          );
-                        }}
-                        label='Slika'
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position='start'>
-                              <Image />
-                            </InputAdornment>
-                          ),
-                        }}
-                        error={
-                          formik.touched.eventImg &&
-                          Boolean(formik.errors.eventImg)
-                        }
-                        helperText={
-                          formik.touched.eventImg ? formik.errors.eventImg : ''
-                        }
-                      /> */}
-
-                      <FileUpload
-                        name='eventImg'
-                        label='Slika događaja'
-                        // onChange={handleChange}
-                      />
+                      <div className={classes.fileBtnRoot}>
+                        <Image style={{ margin: '.5em 0 0 10px ' }} />
+                        <label htmlFor='eventImg'>
+                          <input
+                            name='eventImg'
+                            id='eventImg'
+                            type='file'
+                            onChange={(e) =>
+                              formik.setFieldValue(
+                                'eventImg',
+                                e.target.files[0]
+                              )
+                            }
+                          />
+                          <Button
+                            color='secondary'
+                            variant='outlined'
+                            component='span'
+                            style={{ marginTop: '8px' }}
+                          >
+                            Ubacite fotografiju
+                          </Button>
+                        </label>
+                      </div>
+                      {formik.errors.eventImg && (
+                        <p style={{ color: '#f44336', paddingTop: '2px' }}>
+                          {formik.errors.eventImg}
+                        </p>
+                      )}
                     </Grid>
                     <Grid item xs={12}>
                       <Textarea

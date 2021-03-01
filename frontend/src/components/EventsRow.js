@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
     },
   },
-
 }));
 
 export default function EventsRow({ events }) {
@@ -32,14 +31,14 @@ export default function EventsRow({ events }) {
   return (
     <Grid
       className={classes.root}
-      direction="row"
-      justify="center"
-      alignItems="center"
+      direction='row'
+      justify='center'
+      alignItems='center'
       container
       spacing={2}
     >
       <Grid item className={classes.timeFrameContainer}>
-        <Typography align="left" variant="h6">
+        <Typography align='left' variant='h6'>
           {events[0].time}
         </Typography>
       </Grid>
@@ -51,13 +50,13 @@ export default function EventsRow({ events }) {
         sm={10}
         className={classes.eventsContainer}
       >
-        <Grid item xs={12} sm={4} className={classes.event}>
+        <Grid item xs={12} md={6} lg={4} className={classes.event}>
           <EventCard data={events[0]} />
         </Grid>
-        <Grid item xs={12} sm={4} className={classes.event}>
+        <Grid item xs={12} md={6} lg={4} className={classes.event}>
           {events[1] ? <EventCard data={events[1]} /> : null}
         </Grid>
-        <Grid item xs={12} sm={4} className={classes.event}>
+        <Grid item xs={12} md={6} lg={4} className={classes.event}>
           {events[2] ? <EventCard data={events[2]} /> : null}
         </Grid>
       </Grid>

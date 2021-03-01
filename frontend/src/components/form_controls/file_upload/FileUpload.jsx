@@ -1,30 +1,48 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useField, useFormikContext } from 'formik';
+import { makeStyles } from '@material-ui/core/styles';
 import { Image } from '@material-ui/icons';
-import { TextField, InputAdornment } from '@material-ui/core';
+import { Button, TextField, InputAdornment } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  fileBtnRoot: {
+    display: 'flex',
+    justifyContent: 'space-beetween',
+    border: '1px solid #bdbdbd',
+    borderRadius: '4px',
+    height: '3.2em',
+
+    '& input': {
+      display: 'none',
+    },
+
+    '& span': {
+      border: 'none',
+      color: '#757575',
+    },
+  },
+});
 
 function FileUpload(props) {
-  const { name, label, ...rest } = props;
+  const { name, label, onChange, value, ...rest } = props;
   const [field, meta] = useField(name);
-  const { values, setFieldValue } = useFormikContext();
+  const { setFieldValue } = useFormikContext();
+  const classes = useStyles();
 
   const handleChange = (event) => {
-    setFieldValue(name, event.target.files[0]);
-    console.log(values);
-
-    //   const { files } = event.target;
-    //   setFieldValue(name, files[0]);
+    const value = event.tartet.files[0];
+    const fieldName = name;
+    setFieldValue(fieldName, value);
   };
 
   const fileConfig = {
-    ...field,
-    ...rest,
-    name,
+    name: name,
     label,
+    id: name,
     type: 'file',
     variant: 'outlined',
-    onChange: handleChange,
-    fullWidth: true,
+    ...field,
+    ...rest,
   };
 
   if (meta && meta.touched && meta.error) {
@@ -35,6 +53,8 @@ function FileUpload(props) {
   return (
     <TextField
       {...fileConfig}
+      fullWidth
+      onChange={(e) => handleChange(e)}
       InputProps={{
         startAdornment: (
           <InputAdornment position='start'>
