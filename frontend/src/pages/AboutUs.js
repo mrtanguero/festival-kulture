@@ -1,8 +1,9 @@
 import React from 'react';
-import { team } from './team';
+import { team } from './helper_folder/team';
 import usersAPI from '../api/usersAPI';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
+import TeamMember from './helper_folder/TeamMember';
 
 const useStyles = makeStyles({
   aboutRoot: {
@@ -26,23 +27,6 @@ const useStyles = makeStyles({
     textAlign: 'justify',
     textIndent: '5%',
     textAlignLast: 'center',
-  },
-
-  teamRoot: {
-    margin: '10px 0',
-    maxHeight: '30%',
-  },
-
-  teamIntro: {
-    '& p': {
-      textAlign: 'justify',
-    },
-  },
-  teamImg: {
-    '& img': {
-      width: '100%',
-      height: '100%',
-    },
   },
 });
 
@@ -78,20 +62,9 @@ export default function AboutUs() {
         </Typography>
       </Grid>
 
-      {team.map((member) => {
-        return (
-          <Grid container spacing={2} className={classes.teamRoot}>
-            <Grid item xs={12} md={6} className={classes.teamIntro}>
-              <Typography variant='h5' component='h1'>
-                {member.name}
-              </Typography>
-              <Typography component='p'>{member.intro}</Typography>
-            </Grid>
-            <Grid item xs={12} md={6} className={classes.teamImg}>
-              <img src={member.image} alt='Ivan' />
-            </Grid>
-          </Grid>
-        );
+      {team.map((member, index) => {
+        const crossMember = index + 1;
+        return <TeamMember {...member} key={index} memberN={crossMember} />;
       })}
     </Grid>
   );
