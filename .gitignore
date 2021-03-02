@@ -1,4 +1,5 @@
 .prettierrc
 /festival-venv
 /account/__pycache__
+/account/migrations/__pycache__
 /login/__pycache__
