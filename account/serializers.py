@@ -1,8 +1,8 @@
-from django.contrib.auth import models
+from django.contrib.auth import authenticate, models
 from django.db.models import fields
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Moderator
+from .models import Moderator, Stage, Event
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -21,8 +21,34 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'],first_name=validated_data['first_name'], last_name=validated_data['last_name'], is_staff=True)
         return user
 
+#login serializer
+
+class LoginSerializer(serializers.Serializer):
+    username= serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Incorrect Credentials BK")
+
 #Moderators
 class ModeratorSerializer(serializers.ModelSerializer):
     class Meta:
         model=Moderator
         fields=('id','username','first_name','last_name','email','password','is_active')
+
+
+
+class StagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Stage
+        exclude = []
+
+class EventsSerializer(serializers.ModelSerializer):
+   # stage = StagesSerializer(many=True, read_only=True)
+    class Meta:
+        model= Event
+        fields = ['id','event_name','category','start_date','end_date','description','event_img','host','stage']
+
