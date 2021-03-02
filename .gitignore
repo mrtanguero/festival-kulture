@@ -1,2 +1,4 @@
 .prettierrc
-festival-venv/
+/festival-venv
+/account/__pycache__
+/login/__pycache__
