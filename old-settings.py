@@ -38,11 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
     'account',
     'knox',
-    'django_filters',
-    'djoser',
     'corsheaders',
 ]
 
@@ -56,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'login.urls'
 
@@ -91,13 +87,6 @@ DATABASES = {
         'HOST': 'localhost',
     }
 }
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'djangoteam7@gmail.com'
-EMAIL_HOST_PASSWORD = 'pffpcqukeylzakji'
-EMAIL_USE_TLS = True
 
 
 # Password validation
@@ -140,19 +129,18 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         'knox.auth.TokenAuthentication',
-    ],
-
-}
-
-DJOSER = {
-    "USER_ID_FIELD": "username",
-    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    ]
 }
 
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+]
+
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:3030',
 ]
