@@ -1,43 +1,38 @@
 import React from 'react';
 import * as yup from 'yup';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import { useStyles } from './user_style';
-import { Grid, Paper, Button } from '@material-ui/core';
-import { ErrorSharp, Image } from '@material-ui/icons';
+import { Grid, Paper } from '@material-ui/core';
 import Input from '../form_controls/input/Input';
 import Select from '../form_controls/select/Select';
 import Textarea from '../form_controls/textarea/Textarea';
 import FormTitle from '../form_controls/form_title/FormTitle';
 import SubmitBtn from '../form_controls/submit_button/SubmitBtn';
 
-const EVENT_TIME = {
-  hour_23: '23h',
-  hour_24: '00h',
-  hour_01: '01h',
-};
-
 const EVENT_DAY = {
-  friday: 'Petak',
-  saturday: 'Subota',
-  sunday: 'Nedelja',
+  1: 'Petak',
+  2: 'Subota',
+  3: 'Nedelja',
 };
 
 const EVENT_TYPE = {
-  movie: 'Film',
-  teather: 'Pozorište',
-  galery: 'Slikarstvo',
+  movie: 'Muzički',
+  teather: 'Filmski',
+  galery: 'Likovni',
+  dance: 'Plesni',
+  cooking: 'Kulinarski',
 };
 
 const INITIAL_VALUES = {
   eventTitle: '',
-  eventTime: '',
+  eventTime: '23:30',
   eventDay: '',
   eventType: '',
   eventImg: '',
   eventDescription: '',
 };
 
-const EVENT_VALIDATION = yup.object({
+const EVENT_VALIDATION = yup.object().shape({
   eventTitle: yup
     .string()
     .max(
@@ -48,19 +43,16 @@ const EVENT_VALIDATION = yup.object({
         } preko`
     )
     .required('Morate imati naslov događaja'),
-  eventTime: yup.string().required('Odaberite vrijeme događaja'),
+  eventTime: yup
+    .string()
+
+    .required('Odaberite vrijeme događaja'),
   eventDay: yup.string().required('Odaberite dan događaja'),
   eventType: yup.string().required('Odaberite žanr događaja'),
-  eventImg: yup.mixed().required('Slika događaja je obavezna'),
-  // .test('fileSize', 'Slika prelazi dozvoljenu veličinu', (value) => {
-  //   return value && value[0].size <= 100000;
-  // })
-  // .test('type', 'Slika može biti u .jpg formatu', (value) => {
-  //   return value && value[0].type === 'eventImg/jpg';
-  // }),
+  eventImg: yup.string().required('URL adresa fotografije obavezna'),
   eventDescription: yup
     .string()
-    .min(1, ({ min, value }) => `Imate još ${min - value.length}`)
+    .min(10, ({ min, value }) => `Imate još ${min - value.length}`)
     .required('Unesite opis događaja'),
 });
 
@@ -101,10 +93,14 @@ function UserEvent(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Select
-                        label='Odaberite vrijeme događаја'
+                      <Input
+                        type='time'
                         name='eventTime'
-                        options={EVENT_TIME}
+                        label='Vrijeme događaja'
+                        icon='time'
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
                       />
                     </Grid>
 
@@ -125,35 +121,12 @@ function UserEvent(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <div className={classes.fileBtnRoot}>
-                        <Image style={{ margin: '.5em 0 0 10px ' }} />
-                        <label htmlFor='eventImg'>
-                          <input
-                            name='eventImg'
-                            id='eventImg'
-                            type='file'
-                            onChange={(e) =>
-                              formik.setFieldValue(
-                                'eventImg',
-                                e.target.files[0]
-                              )
-                            }
-                          />
-                          <Button
-                            color='secondary'
-                            variant='outlined'
-                            component='span'
-                            style={{ marginTop: '8px' }}
-                          >
-                            Ubacite fotografiju
-                          </Button>
-                        </label>
-                      </div>
-                      {formik.errors.eventImg && (
-                        <p style={{ color: '#f44336', paddingTop: '2px' }}>
-                          {formik.errors.eventImg}
-                        </p>
-                      )}
+                      <Input
+                        type='text'
+                        label='URL fotografije'
+                        name='eventImg'
+                        icon='image'
+                      />
                     </Grid>
                     <Grid item xs={12}>
                       <Textarea

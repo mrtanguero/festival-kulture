@@ -1,20 +1,38 @@
 import React from 'react';
 import { useField } from 'formik';
 import { InputAdornment, TextField } from '@material-ui/core';
-import { AccountCircle, Lock, Email, Phone, Book } from '@material-ui/icons';
+import {
+  AccountCircle,
+  Face,
+  Lock,
+  Email,
+  Phone,
+  Book,
+  Image,
+  VerifiedUser,
+  AccessTime,
+} from '@material-ui/icons';
 
 const iconSwitch = (iconName) => {
   switch (iconName.toLowerCase()) {
     case 'lock':
       return <Lock />;
+    case 'verify':
+      return <VerifiedUser />;
     case 'user':
       return <AccountCircle />;
+    case 'face':
+      return <Face />;
     case 'email':
       return <Email />;
     case 'phone':
       return <Phone />;
     case 'book':
       return <Book />;
+    case 'image':
+      return <Image />;
+    case 'time':
+      return <AccessTime />;
     default:
       break;
   }

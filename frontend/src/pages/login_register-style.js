@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   paperRoot: {
     padding: '20px',
     width: '380px',
-    margin: '10% auto',
+    margin: '5% auto 5%',
   },
 
   formTitle: {
