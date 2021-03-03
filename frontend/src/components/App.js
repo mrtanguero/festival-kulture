@@ -1,5 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react';
+import { AuthProvider } from '../context/AuthContext';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from '../history';
 
 import HomePage from '../pages/HomePage';
 import AboutUs from '../pages/AboutUs';
@@ -9,18 +11,28 @@ import Navbar from './Navbar';
 import User from './user/UserEvent';
 
 export default function App() {
+  const [auth, setAuth] = useState(
+    localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')) : {}
+  );
+  console.log(auth);
+
   return (
     <div>
-      <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/aboutus' component={AboutUs} />
-          <Route path='/register' component={RegisterPage} />
-          <Route path='/login' component={LoginPage} />
-          <Route path='/dashboard' component={User} />
-        </Switch>
-      </BrowserRouter>
+      <AuthProvider value={auth}>
+        <Router history={history}>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/aboutus" component={AboutUs} />
+            <Route path="/register" component={RegisterPage} />
+            <Route
+              path="/login"
+              render={() => <LoginPage setAuth={setAuth} />}
+            />
+            <Route path="/dashboard" component={User} />
+          </Switch>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

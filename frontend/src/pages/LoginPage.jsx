@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import djangoAPI from '../api/djangoAPI';
+import history from '../history';
 
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
@@ -54,18 +55,25 @@ const LOGIN_VALIDATION = yup.object({
     .required('Morate unijeti šifru'),
 });
 
-function Login(props) {
+function LoginPage({ setAuth }) {
   const classes = useStyles();
 
   const onSubmit = async (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
     const response = await djangoAPI.post('/login/', {
-      'username': values.username,
-      'password': values.password
+      username: values.username,
+      password: values.password
     })
     console.log(response);
-    // TODO: Home page after valid login (history?)
+
+    if (response.statusText === 'OK') {
+      await setAuth(response.data);
+      localStorage.setItem('auth', JSON.stringify(response.data));
+      history.push('/');
+    } else {
+      console.error(response.statusText);
+    }
   };
 
   return (
@@ -126,4 +134,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default LoginPage;
