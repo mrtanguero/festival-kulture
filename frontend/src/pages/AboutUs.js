@@ -1,6 +1,5 @@
 import React from 'react';
 import { team } from './helper_folder/team';
-import usersAPI from '../api/usersAPI';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import TeamMember from './helper_folder/TeamMember';
@@ -31,22 +30,15 @@ const useStyles = makeStyles({
 });
 
 export default function AboutUs() {
-  const apiCall = async () => {
-    const data = await usersAPI.get('/showUsers');
-    console.log(data);
-  };
-
-  apiCall();
-
   const classes = useStyles();
 
   return (
     <Grid container spacing={2} className={classes.aboutRoot}>
       <Grid item xs={12}>
         <div className={classes.logo}>
-          <img src='/images/eiffel.png' alt='Logo' />
+          <img src="/images/eiffel.png" alt="Logo" />
         </div>
-        <Typography variant='h6' component='h2' className={classes.aboutUs}>
+        <Typography variant="h6" component="h2" className={classes.aboutUs}>
           Par dana u prošlost shvatili smo da je ljudima potreban pouzdan i
           iskusan tim stručnjaka koji će im pomoći da pronađu osobe sličnih
           interesa. Zato smo odlučili da svoje znaje psihologije,
@@ -56,8 +48,8 @@ export default function AboutUs() {
         </Typography>
       </Grid>
 
-      <Grid item xs={12} align='center'>
-        <Typography variant='h5' component='h1'>
+      <Grid item xs={12} align="center">
+        <Typography variant="h5" component="h1">
           Upoznajte naš tim
         </Typography>
       </Grid>
