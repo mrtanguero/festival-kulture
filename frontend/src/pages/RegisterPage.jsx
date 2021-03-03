@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import usersAPI from '../api/usersAPI';
+import djangoAPI from '../api/djangoAPI';
 
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
@@ -65,7 +65,7 @@ function Register() {
     console.log(values, onSubmitProps);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
-    // const response = await usersAPI.post('/register/', {
+    // const response = await djangoAPI.post('/register/', {
     //   'username': values.username,
     //   'password': values.password
     // })
