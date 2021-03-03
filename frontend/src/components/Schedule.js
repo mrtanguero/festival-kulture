@@ -26,23 +26,21 @@ export default function Schedule({ data, day }) {
   };
 
   const dataRows = makeRows(data, day);
-  console.log(dataRows);
+  // console.log(dataRows);
 
   const renderEvents = () => {
     return dataRows.map((row, i) => {
       return (
         // <Grid key={i} item>
-          <EventsRow events={row} />
+        <EventsRow key={i} events={row} />
         // </Grid>
       );
     });
   };
 
   return (
-  // <Grid container direction="column">
-  <React.Fragment>
-    {renderEvents()}
-  </React.Fragment>
-  // </Grid>
+    // <Grid container direction="column">
+    <React.Fragment>{renderEvents()}</React.Fragment>
+    // </Grid>
   );
 }

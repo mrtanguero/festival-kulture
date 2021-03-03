@@ -8,8 +8,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import Schedule from './Schedule'
-import {testData} from '../temp/testData'
+import Schedule from './Schedule';
+import { testData } from '../temp/testData';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,8 +73,8 @@ export default function FullWidthTabs() {
           onChange={handleChange}
           indicatorColor="secondary"
           textColor="secondary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
+          // variant="fullWidth"
+          aria-label="days tabs"
           centered
         >
           <Tab label="Petak" {...a11yProps(0)} />
@@ -93,8 +93,8 @@ export default function FullWidthTabs() {
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Schedule data={testData} day={2} />
         </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
-          <Schedule data={testData} day={1} />
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          <Schedule data={testData} day={3} />
         </TabPanel>
       </SwipeableViews>
     </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
+import usersAPI from '../api/usersAPI';
+
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
 import Input from '../components/form_controls/input/Input';
@@ -59,10 +61,16 @@ const REGISTER_VALIDATION = yup.object({
 function Register() {
   const classes = useStyles();
 
-  const onSubmit = (values, onSubmitProps) => {
-    // console.log(values, onSubmitProps);
+  const onSubmit = async (values, onSubmitProps) => {
+    console.log(values, onSubmitProps);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
+    // const response = await usersAPI.post('/register/', {
+    //   'username': values.username,
+    //   'password': values.password
+    // })
+    // console.log(response);
+    // TODO: Home page after valid login (history?)
   };
   return (
     <Grid style={{ height: '80vh' }}>

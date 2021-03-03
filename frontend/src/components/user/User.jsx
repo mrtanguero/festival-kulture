@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import { useStyles } from './user_style';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Paper, Button, Image } from '@material-ui/core';
 import Input from '../form_controls/input/Input';
 import FormTitle from '../form_controls/form_title/FormTitle';
 import SubmitBtn from '../form_controls/submit_button/SubmitBtn';

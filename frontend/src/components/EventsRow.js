@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: '1200px',
-    width: '90%',
+    width: '100%',
     padding: '25px 0',
     borderBottom: '1px solid #dddddd',
   },
@@ -26,19 +26,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EventsRow({ events }) {
   const classes = useStyles();
-  console.log(events);
+  // console.log(events);
 
   return (
     <Grid
       className={classes.root}
-      direction='row'
-      justify='center'
-      alignItems='center'
+      direction="row"
+      justify="center"
+      alignItems="center"
       container
       spacing={2}
     >
       <Grid item className={classes.timeFrameContainer}>
-        <Typography align='left' variant='h6'>
+        <Typography align="left" variant="h6">
           {events[0].time}
         </Typography>
       </Grid>
