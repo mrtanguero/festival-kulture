@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const theme = useTheme();
   const classes = useStyles();
+  const auth = useContext(AuthContext);
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -72,6 +73,35 @@ export default function Navbar() {
     setValue(value);
   };
 
+  const notLoggedInTabs = !auth.token
+    ? [
+        <Tab
+          className={classes.tab}
+          label="Login"
+          component={Link}
+          to="/login"
+        />,
+        <Tab
+          className={classes.tab}
+          label="Registracija"
+          component={Link}
+          to="/register"
+        />,
+      ]
+    : null;
+
+  const loggedInTabs = auth.token
+    ? [
+        <Tab className={classes.tab} label="Profil" />,
+        <Tab
+          className={classes.tab}
+          label="Logout"
+          component={Link}
+          to="/logout"
+        />,
+      ]
+    : null;
+
   const tabs = (
     <Tabs
       className={classes.tabsContainer}
@@ -85,14 +115,10 @@ export default function Navbar() {
         component={Link}
         to="/aboutus"
       />
-      <Tab className={classes.tab} label="Login" component={Link} to="/login" />
-      <Tab
-        className={classes.tab}
-        label="Registracija"
-        component={Link}
-        to="/register"
-      />
-      <Tab className={classes.tab} label="Profil" />
+
+      {notLoggedInTabs}
+
+      {loggedInTabs}
     </Tabs>
   );
 
