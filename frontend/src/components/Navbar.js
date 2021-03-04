@@ -122,6 +122,74 @@ export default function Navbar() {
     </Tabs>
   );
 
+  const notLoggedInDrawerItems = !auth.token
+    ? [
+        <ListItem
+          className={
+            value === 2 ? classes.drawerItemSelected : classes.drawerItem
+          }
+          divider
+          button
+          onClick={() => {
+            setValue(2);
+            setOpenDrawer(false);
+          }}
+          component={Link}
+          to="/login"
+          selected={value === 2}
+        >
+          <ListItemText>Login</ListItemText>
+        </ListItem>,
+        <ListItem
+          className={
+            value === 3 ? classes.drawerItemSelected : classes.drawerItem
+          }
+          divider
+          button
+          onClick={() => {
+            setValue(3);
+            setOpenDrawer(false);
+          }}
+          component={Link}
+          to="/register"
+          selected={value === 3}
+        >
+          <ListItemText>Registracija</ListItemText>
+        </ListItem>,
+      ]
+    : null;
+
+  const loggedInDrawerItems = auth.token
+    ? [
+        <ListItem
+          className={
+            value === 4 ? classes.drawerItemSelected : classes.drawerItem
+          }
+          divider
+          button
+          onClick={() => setOpenDrawer(false)}
+          component={Link}
+          to="/dashboard"
+          selected={value === 4}
+        >
+          <ListItemText>Profil</ListItemText>
+        </ListItem>,
+        <ListItem
+          className={
+            value === 5 ? classes.drawerItemSelected : classes.drawerItem
+          }
+          divider
+          button
+          onClick={() => setOpenDrawer(false)}
+          component={Link}
+          to="/logout"
+          selected={value === 5}
+        >
+          <ListItemText>Logout</ListItemText>
+        </ListItem>,
+      ]
+    : null;
+
   const drawer = (
     <React.Fragment>
       <SwipeableDrawer
@@ -166,51 +234,8 @@ export default function Navbar() {
           >
             <ListItemText>O nama</ListItemText>
           </ListItem>
-          <ListItem
-            className={
-              value === 2 ? classes.drawerItemSelected : classes.drawerItem
-            }
-            divider
-            button
-            onClick={() => {
-              setValue(2);
-              setOpenDrawer(false);
-            }}
-            component={Link}
-            to="/login"
-            selected={value === 2}
-          >
-            <ListItemText>Login</ListItemText>
-          </ListItem>
-          <ListItem
-            className={
-              value === 3 ? classes.drawerItemSelected : classes.drawerItem
-            }
-            divider
-            button
-            onClick={() => {
-              setValue(3);
-              setOpenDrawer(false);
-            }}
-            component={Link}
-            to="/register"
-            selected={value === 3}
-          >
-            <ListItemText>Registracija</ListItemText>
-          </ListItem>
-          <ListItem
-            className={
-              value === 4 ? classes.drawerItemSelected : classes.drawerItem
-            }
-            divider
-            button
-            onClick={() => setOpenDrawer(false)}
-            component={Link}
-            to="/dashboard"
-            selected={value === 4}
-          >
-            <ListItemText>Profil</ListItemText>
-          </ListItem>
+          {notLoggedInDrawerItems}
+          {loggedInDrawerItems}
         </List>
       </SwipeableDrawer>
       <IconButton

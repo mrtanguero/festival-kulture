@@ -9,6 +9,7 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import Navbar from './Navbar';
 import User from './user/UserEvent';
+import Logout from './Logout';
 
 export default function App() {
   const [auth, setAuth] = useState(
@@ -30,6 +31,7 @@ export default function App() {
               render={() => <LoginPage setAuth={setAuth} />}
             />
             <Route path="/dashboard" component={User} />
+            <Route path="/logout" render={() => <Logout setAuth={setAuth} />} />
           </Switch>
         </Router>
       </AuthProvider>
