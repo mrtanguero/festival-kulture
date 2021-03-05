@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Schedule from '../components/Schedule';
-import TabPanel from '../components/TabPanel';
-import Grid from '@material-ui/core/Grid';
+// import djangoAPI from '../api/djangoAPI';
+// import axios from 'axios';
+const axios = require('axios');
 
-import djangoAPI from '../api/djangoAPI';
-
-// TODO: HELPER FUNKCIJE - VIĐI ĐE ĆEŠ SA NJIMA
 const adaptEvent = (festEvent) => {
   const splitStartTime = festEvent.start_time.split(':');
   const startHours = splitStartTime[0];
@@ -18,7 +14,6 @@ const adaptEvent = (festEvent) => {
   return {
     id: festEvent.id,
     eventName: festEvent.event_name,
-    category: festEvent.category,
     day: parseInt(festEvent.day),
     startTime: {
       hours: startHours,
@@ -62,24 +57,9 @@ const sortEventsFunction = (firstEvent, secondEvent) => {
   return -1;
 };
 
-export default function HomePage() {
-  const [events, setEvents] = useState(null);
+const fetchEvents = async () => {
+  const { data } = await axios.get('http://localhost:8000/api/showEvents/');
+  console.log(data.map((event) => adaptEvent(event)).sort(sortEventsFunction));
+};
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const { data } = await djangoAPI.get('/showEvents');
-      const events = data
-        .map((event) => adaptEvent(event))
-        .sort(sortEventsFunction);
-      setEvents(events);
-    };
-    fetchEvents();
-  }, []);
-
-  return (
-    // <TabPanel /> zamijeni običnim ovo nešto ne valja
-    <Grid container spacing={2}>
-      <Schedule data={events} />
-    </Grid>
-  );
-}
+fetchEvents();

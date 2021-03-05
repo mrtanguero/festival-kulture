@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import AuthContext from '../context/AuthContext';
+import history from '../history';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -34,15 +37,20 @@ const useStyles = makeStyles({
 
 export default function EventCard({ data }) {
   const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = useState(null);
+  const auth = useContext(AuthContext);
   const open = Boolean(anchorEl);
+
   const {
-    userName,
-    userImgUrl,
+    host,
+    // 'userFirstName', //TODO: ovo bi trebalo nekako izvući radi prikaza
     eventName,
-    eventImageUrl,
-    eventCategory,
-    eventDescription,
+    startTime,
+    endTime,
+    eventImg,
+    category, //TODO: Đe je? o.O
+    description,
   } = data;
 
   const handleClick = (event) => {
@@ -53,52 +61,49 @@ export default function EventCard({ data }) {
     setAnchorEl(null);
   };
 
-  return (
+  return data ? (
     <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar
-            src={userImgUrl}
-            alt={userName}
-            aria-label={userName}
+            alt={'userFirstName'}
+            aria-label={'userFirstName'}
             className={classes.avatar}
           >
-            {userImgUrl ? '' : 'R'}
+            {/* {userFirstName[0].toUpperCase()} */ 'R'}
           </Avatar>
         }
         action={
-          <React.Fragment>
-            <IconButton
-              aria-controls="edit-menu"
-              aria-haspopup="true"
-              aria-label="edit-menu"
-              onClick={handleClick}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              id="edit-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Edit</MenuItem>
-              <MenuItem onClick={handleClose}>Delete</MenuItem>
-            </Menu>
-          </React.Fragment>
+          auth?.user?.id === host || auth?.user?.is_superuser ? (
+            <React.Fragment>
+              <IconButton
+                aria-controls="edit-menu"
+                aria-haspopup="true"
+                aria-label="edit-menu"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="edit-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Edit</MenuItem>
+                <MenuItem onClick={handleClose}>Delete</MenuItem>
+              </Menu>
+            </React.Fragment>
+          ) : null
         }
         title={<strong>{eventName}</strong>}
-        subheader={eventCategory}
+        subheader={category}
       />
-      <CardMedia
-        className={classes.media}
-        image={eventImageUrl}
-        title={eventName}
-      />
+      <CardMedia className={classes.media} image={eventImg} title={eventName} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {eventDescription}
+          {description}
         </Typography>
       </CardContent>
       <CardActions className={classes.CardActions}>
@@ -107,5 +112,5 @@ export default function EventCard({ data }) {
         </Button>
       </CardActions>
     </Card>
-  );
+  ) : null;
 }

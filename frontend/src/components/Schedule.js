@@ -1,37 +1,34 @@
 import React from 'react';
+import EventCard from './EventCard';
+import Grid from '@material-ui/core/Grid';
 
 // import { makeStyles } from '@material-ui/core';
-
-import EventsRow from './EventsRow';
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {},
 // }));
 
-export default function Schedule({ data, day }) {
+export default function Schedule({ data, day = 0 }) {
   // const classes = useStyles();
 
-  const makeRows = (data, day) => {
-    const rows = [];
+  const filteredEventList = data ? (
     data
-      .filter((event) => event.day === day)
-      .forEach((event) => {
-        if (rows[`${event.time}`]) {
-          rows[`${event.time}`].push(event);
-        } else {
-          rows[`${event.time}`] = [event];
+      .filter((festEvent) => {
+        if (day === 0) return true;
+        else {
+          return festEvent.day === day;
         }
-      });
-    return rows;
-  };
+      })
+      .map((festEvent) => {
+        return (
+          <Grid key={festEvent.id} item xs={12} sm={6} md={4}>
+            <EventCard data={festEvent} />
+          </Grid>
+        );
+      })
+  ) : (
+    <div>...</div>
+  );
 
-  const dataRows = makeRows(data, day);
-
-  const renderEvents = () => {
-    return dataRows.map((row, i) => {
-      return <EventsRow key={i} events={row} />;
-    });
-  };
-
-  return <React.Fragment>{renderEvents()}</React.Fragment>;
+  return <React.Fragment>{filteredEventList}</React.Fragment>;
 }

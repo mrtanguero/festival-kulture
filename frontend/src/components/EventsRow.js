@@ -37,11 +37,6 @@ export default function EventsRow({ events }) {
       container
       spacing={2}
     >
-      <Grid item className={classes.timeFrameContainer}>
-        <Typography align="left" variant="h6">
-          {events[0].time}
-        </Typography>
-      </Grid>
       <Grid
         item
         container
