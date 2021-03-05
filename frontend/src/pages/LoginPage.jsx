@@ -13,12 +13,6 @@ const INITIAL_VALUES = {
   password: '',
 };
 
-const PASSWORD_CONFIG = {
-  lowercase: '^(?=.*[a-z])',
-  uppercase: '^(?=.*[A-Z])',
-  number: '^(?=.*[0-9])',
-};
-
 const LOGIN_VALIDATION = yup.object({
   username: yup
     .string()

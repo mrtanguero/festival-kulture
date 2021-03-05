@@ -6,7 +6,8 @@ import AboutUs from '../pages/AboutUs';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import Navbar from './Navbar';
-import UserEvent from './user/UserEvent';
+// import UserEvent from './user/UserEvent';
+import EditEvent from '../components/event_edit/EditEvent';
 
 export default function App() {
   return (
@@ -18,7 +19,7 @@ export default function App() {
           <Route path='/aboutus' component={AboutUs} />
           <Route path='/register' component={RegisterPage} />
           <Route path='/login' component={LoginPage} />
-          <Route path='/dashboard' component={UserEvent} />
+          <Route path='/dashboard' component={EditEvent} />
         </Switch>
       </BrowserRouter>
     </div>
