@@ -55,7 +55,7 @@ const LOGIN_VALIDATION = yup.object({
     .required('Morate unijeti šifru'),
 });
 
-function LoginPage({ setAuth }) {
+function LoginPage({ setAuth, setValue }) {
   const classes = useStyles();
 
   const onSubmit = async (values, onSubmitProps) => {
@@ -63,13 +63,14 @@ function LoginPage({ setAuth }) {
     onSubmitProps.resetForm();
     const response = await djangoAPI.post('/login/', {
       username: values.username,
-      password: values.password
-    })
+      password: values.password,
+    });
     console.log(response);
 
     if (response.statusText === 'OK') {
       await setAuth(response.data);
       localStorage.setItem('auth', JSON.stringify(response.data));
+      setValue(0);
       history.push('/');
     } else {
       console.error(response.statusText);
@@ -79,10 +80,10 @@ function LoginPage({ setAuth }) {
   return (
     <Grid style={{ height: '70vh' }}>
       <Paper elevation={10} className={classes.paperRoot}>
-        <Grid align='center'>
-          <FormAvatar icon='lock' className={classes.formAvatar} />
+        <Grid align="center">
+          <FormAvatar icon="lock" className={classes.formAvatar} />
 
-          <Typography variant='h4' component='h2' className={classes.formTitle}>
+          <Typography variant="h4" component="h2" className={classes.formTitle}>
             PRIJAVI SE
           </Typography>
         </Grid>
@@ -96,24 +97,24 @@ function LoginPage({ setAuth }) {
             return (
               <Form>
                 <Input
-                  type='text'
-                  label='Korisničko ime'
-                  name='username'
-                  icon='user'
+                  type="text"
+                  label="Korisničko ime"
+                  name="username"
+                  icon="user"
                 />
 
                 <Input
-                  type='password'
-                  label='Šifra'
-                  name='password'
-                  icon='lock'
+                  type="password"
+                  label="Šifra"
+                  name="password"
+                  icon="lock"
                 />
 
                 <Button
-                  type='submit'
+                  type="submit"
                   disabled={!formik.isValid}
-                  component='button'
-                  variant='contained'
+                  component="button"
+                  variant="contained"
                   fullWidth
                   className={classes.submitBtn}
                 >
@@ -125,7 +126,7 @@ function LoginPage({ setAuth }) {
         </Formik>
 
         <Typography className={classes.formRedirect}>
-          Nemaš nalog <Link to='/register'>Registruj se</Link>
+          Nemaš nalog <Link to="/register">Registruj se</Link>
         </Typography>
 
         <GoogleeLogin />

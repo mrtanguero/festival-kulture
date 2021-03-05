@@ -50,5 +50,5 @@ class EventsSerializer(serializers.ModelSerializer):
    # stage = StagesSerializer(many=True, read_only=True)
     class Meta:
         model= Event
-        fields = ['id','event_name','category','start_date','end_date','description','event_img','host','stage']
+        fields = ['id','event_name','category', 'day', 'start_time','end_time','description','event_img','host','stage']
 

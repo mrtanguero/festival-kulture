@@ -45,14 +45,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ value, setValue }) {
   const theme = useTheme();
   const classes = useStyles();
   const auth = useContext(AuthContext);
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
   const [openDrawer, setOpenDrawer] = useState(false);
 
   useEffect(() => {
@@ -64,10 +64,12 @@ export default function Navbar() {
       setValue(2);
     } else if (window.location.pathname === '/register' && value !== 3) {
       setValue(3);
-    } else if (window.location.pathname === '/dashboard' && value !== 4) {
-      setValue(4);
+    } else if (window.location.pathname === '/dashboard' && value !== 2) {
+      setValue(3);
+    } else if (window.location.pathname === '/logout' && value !== 3) {
+      setValue(3);
     }
-  }, [value]);
+  });
 
   const handleChange = (e, value) => {
     setValue(value);
@@ -76,12 +78,14 @@ export default function Navbar() {
   const notLoggedInTabs = !auth.token
     ? [
         <Tab
+          key={2}
           className={classes.tab}
           label="Login"
           component={Link}
           to="/login"
         />,
         <Tab
+          key={3}
           className={classes.tab}
           label="Registracija"
           component={Link}
@@ -92,8 +96,15 @@ export default function Navbar() {
 
   const loggedInTabs = auth.token
     ? [
-        <Tab className={classes.tab} label="Profil" />,
         <Tab
+          key={2}
+          className={classes.tab}
+          label="Profil"
+          component={Link}
+          to="/dashboard"
+        />,
+        <Tab
+          key={3}
           className={classes.tab}
           label="Logout"
           component={Link}
@@ -108,8 +119,15 @@ export default function Navbar() {
       value={value}
       onChange={handleChange}
     >
-      <Tab className={classes.tab} label="Događaji" component={Link} to="/" />
       <Tab
+        key={0}
+        className={classes.tab}
+        label="Događaji"
+        component={Link}
+        to="/"
+      />
+      <Tab
+        key={1}
         className={classes.tab}
         label="O nama"
         component={Link}
@@ -125,6 +143,7 @@ export default function Navbar() {
   const notLoggedInDrawerItems = !auth.token
     ? [
         <ListItem
+          key={2}
           className={
             value === 2 ? classes.drawerItemSelected : classes.drawerItem
           }
@@ -141,6 +160,7 @@ export default function Navbar() {
           <ListItemText>Login</ListItemText>
         </ListItem>,
         <ListItem
+          key={3}
           className={
             value === 3 ? classes.drawerItemSelected : classes.drawerItem
           }
@@ -162,28 +182,30 @@ export default function Navbar() {
   const loggedInDrawerItems = auth.token
     ? [
         <ListItem
+          key={2}
           className={
-            value === 4 ? classes.drawerItemSelected : classes.drawerItem
+            value === 2 ? classes.drawerItemSelected : classes.drawerItem
           }
           divider
           button
           onClick={() => setOpenDrawer(false)}
           component={Link}
           to="/dashboard"
-          selected={value === 4}
+          selected={value === 2}
         >
           <ListItemText>Profil</ListItemText>
         </ListItem>,
         <ListItem
+          key={3}
           className={
-            value === 5 ? classes.drawerItemSelected : classes.drawerItem
+            value === 3 ? classes.drawerItemSelected : classes.drawerItem
           }
           divider
           button
           onClick={() => setOpenDrawer(false)}
           component={Link}
           to="/logout"
-          selected={value === 5}
+          selected={value === 3}
         >
           <ListItemText>Logout</ListItemText>
         </ListItem>,

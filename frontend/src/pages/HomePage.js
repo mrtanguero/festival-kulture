@@ -1,12 +1,9 @@
 import React from 'react';
-import Schedule from '../components/Schedule';
-import TabPanel from '../components/TabPanel'
-
-import { testData } from '../temp/testData';
+import TabPanel from '../components/TabPanel';
 
 export default function HomePage() {
   return (
+    // <div>Home Page</div>
     <TabPanel />
-      // <Schedule data={testData} day={1} />
   );
 }

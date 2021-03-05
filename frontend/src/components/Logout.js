@@ -3,12 +3,11 @@ import history from '../history';
 import djangoAPI from '../api/djangoAPI';
 import AuthContext from '../context/AuthContext';
 
-export default function Logout({ setAuth }) {
+export default function Logout({ setAuth, setValue }) {
   const auth = useContext(AuthContext);
-  console.log(auth.token);
 
   const logout = async () => {
-    const results = await djangoAPI.post(
+    const response = await djangoAPI.post(
       '/logout/',
       {},
       {
@@ -17,13 +16,11 @@ export default function Logout({ setAuth }) {
         },
       }
     );
-    console.log(results);
-    if (!results.data) {
+    if (response.status === 204) {
       localStorage.clear();
       setAuth({});
-      setTimeout(() => {
-        history.push('/');
-      }, 3000);
+      setValue(0);
+      history.push('/');
     }
   };
   if (auth.token) {

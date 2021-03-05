@@ -8,30 +8,36 @@ import AboutUs from '../pages/AboutUs';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import Navbar from './Navbar';
-import User from './user/UserEvent';
+// import User from './user/UserEvent';
 import Logout from './Logout';
 
 export default function App() {
   const [auth, setAuth] = useState(
     localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')) : {}
   );
-  console.log(auth);
+  const [value, setValue] = useState(0);
 
   return (
     <div>
       <AuthProvider value={auth}>
         <Router history={history}>
-          <Navbar />
+          <Navbar value={value} setValue={setValue} />
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/aboutus" component={AboutUs} />
             <Route path="/register" component={RegisterPage} />
             <Route
               path="/login"
-              render={() => <LoginPage setAuth={setAuth} />}
+              render={() => <LoginPage setValue={setValue} setAuth={setAuth} />}
             />
-            <Route path="/dashboard" component={User} />
-            <Route path="/logout" render={() => <Logout setAuth={setAuth} />} />
+            <Route
+              path="/dashboard"
+              render={() => <div>Ovo je user profile page</div>}
+            />
+            <Route
+              path="/logout"
+              render={() => <Logout setValue={setValue} setAuth={setAuth} />}
+            />
           </Switch>
         </Router>
       </AuthProvider>
