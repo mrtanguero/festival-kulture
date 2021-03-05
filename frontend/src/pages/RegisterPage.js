@@ -12,6 +12,8 @@ import FormAvatar from '../components/form_controls/avatar/FormAvatar';
 
 const INITIAL_VALUES = {
   username: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -25,6 +27,27 @@ const PASSWORD_CONFIG = {
 
 const REGISTER_VALIDATION = yup.object({
   username: yup.string().required('Korisničko ime je obavezno'),
+  firstName: yup
+    .string()
+    .min(3, ({ min }) => `Ime mora sadržati barem ${min} slova`)
+    .max(
+      15,
+      ({ max, value }) =>
+        `Ime ne može prelaziti ${max} znakova, unijeli ste ${
+          value.length - max
+        } više`
+    )
+    .required('Unesite ime'),
+  lastName: yup
+    .string()
+    .max(
+      30,
+      ({ max, value }) =>
+        `Prezime ne može imati preko ${max} znakova, unijeli ste ${
+          value.length - max
+        } više`
+    )
+    .required('Unesite prezime'),
   email: yup
     .string()
     .lowercase('Email unesite malim slovima')
@@ -73,7 +96,7 @@ function Register() {
     // TODO: Home page after valid login (history?)
   };
   return (
-    <Grid style={{ height: '80vh' }}>
+    <Grid>
       <Paper elevation={10} className={classes.paperRoot}>
         <Grid align='center'>
           <FormAvatar icon='circle' className={classes.formAvatar} />
@@ -100,6 +123,22 @@ function Register() {
                 />
 
                 <Input
+                  type='text'
+                  label='Ime'
+                  name='firstName'
+                  icon='face'
+                  placeholder='Ljubiša'
+                />
+
+                <Input
+                  type='text'
+                  label='Prezime'
+                  name='lastName'
+                  icon='face'
+                  placeholder='Doe'
+                />
+
+                <Input
                   type='email'
                   label='Email'
                   name='email'
@@ -116,9 +155,9 @@ function Register() {
 
                 <Input
                   type='password'
-                  label='Potvrdi šifru'
+                  label='Potvrdite šifru'
                   name='confirmPassword'
-                  icon='lock'
+                  icon='verify'
                 />
 
                 <Button
@@ -140,7 +179,8 @@ function Register() {
           Imaš nalog <Link to='/login'>Prijavi se</Link>
         </Typography>
 
-        <GoogleeLogin />
+        {/* Remove coment tags to enable Google Login */}
+        {/* <GoogleeLogin /> */}
       </Paper>
     </Grid>
   );

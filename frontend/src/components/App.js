@@ -10,6 +10,8 @@ import RegisterPage from '../pages/RegisterPage';
 import Navbar from './Navbar';
 // import User from './user/UserEvent';
 import Logout from './Logout';
+// import UserEvent from './user/UserEvent';
+// import EditEvent from '../components/event_edit/EditEvent';
 
 export default function App() {
   const [auth, setAuth] = useState(
