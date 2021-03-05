@@ -8,7 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
+// import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -43,13 +43,14 @@ export default function EventCard({ data }) {
   const open = Boolean(anchorEl);
 
   const {
+    id,
     host,
     // 'userFirstName', //TODO: ovo bi trebalo nekako izvući radi prikaza
     eventName,
     startTime,
     endTime,
     eventImg,
-    category, //TODO: Đe je? o.O
+    category,
     description,
   } = data;
 
@@ -64,15 +65,15 @@ export default function EventCard({ data }) {
   return data ? (
     <Card className={classes.root}>
       <CardHeader
-        avatar={
-          <Avatar
-            alt={'userFirstName'}
-            aria-label={'userFirstName'}
-            className={classes.avatar}
-          >
-            {/* {userFirstName[0].toUpperCase()} */ 'R'}
-          </Avatar>
-        }
+        // avatar={
+        //   <Avatar
+        //     alt={'userFirstName'}
+        //     aria-label={'userFirstName'}
+        //     className={classes.avatar}
+        //   >
+        //     {/* {userFirstName[0].toUpperCase()} */ 'R'}
+        //   </Avatar>
+        // }
         action={
           auth?.user?.id === host || auth?.user?.is_superuser ? (
             <React.Fragment>
@@ -91,14 +92,32 @@ export default function EventCard({ data }) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Edit</MenuItem>
-                <MenuItem onClick={handleClose}>Delete</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    history.push(`/events/${id}`);
+                    handleClose();
+                  }}
+                >
+                  Edit
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    // Ovdje logika za brisanje pa refresh?
+                    alert('Are you sure you want to delete this event?');
+                    handleClose();
+                    history.push(`/delete/${id}`);
+                  }}
+                >
+                  Delete
+                </MenuItem>
               </Menu>
             </React.Fragment>
           ) : null
         }
-        title={<strong>{eventName}</strong>}
-        subheader={category}
+        title={eventName}
+        subheader={`${startTime.hours}:${startTime.minutes}-${endTime.hours}:${
+          endTime.minutes
+        } (${category.toLowerCase()})`}
       />
       <CardMedia className={classes.media} image={eventImg} title={eventName} />
       <CardContent>
@@ -107,7 +126,14 @@ export default function EventCard({ data }) {
         </Typography>
       </CardContent>
       <CardActions className={classes.CardActions}>
-        <Button variant="contained" color="secondary">
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => {
+            history.push(`/events/${id}`);
+            handleClose();
+          }}
+        >
           Read more
         </Button>
       </CardActions>

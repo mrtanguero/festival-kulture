@@ -5,11 +5,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
 import Schedule from './Schedule';
-import { testData } from '../temp/testData';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -18,15 +15,11 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
+      id={`tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -47,12 +40,12 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: '80%',
+    width: '90%',
     margin: 'auto',
   },
 }));
 
-export default function FullWidthTabs() {
+export default function TabPanels({ events }) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -73,8 +66,7 @@ export default function FullWidthTabs() {
           onChange={handleChange}
           indicatorColor="secondary"
           textColor="secondary"
-          // variant="fullWidth"
-          aria-label="days tabs"
+          aria-label="full width tabs example"
           centered
         >
           <Tab label="Petak" {...a11yProps(0)} />
@@ -87,14 +79,14 @@ export default function FullWidthTabs() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Schedule data={testData} day={1} />
+        <TabPanel value={value} index={0}>
+          <Schedule day={1} data={events} />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Schedule data={testData} day={2} />
+        <TabPanel value={value} index={1}>
+          <Schedule day={2} data={events} />
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <Schedule data={testData} day={3} />
+        <TabPanel value={value} index={2}>
+          <Schedule day={3} data={events} />
         </TabPanel>
       </SwipeableViews>
     </div>

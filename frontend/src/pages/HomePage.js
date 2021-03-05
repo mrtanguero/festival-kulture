@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Schedule from '../components/Schedule';
-import TabPanel from '../components/TabPanel';
-import Grid from '@material-ui/core/Grid';
+import TabPanels from '../components/TabPanels';
 
 import djangoAPI from '../api/djangoAPI';
 
@@ -76,10 +74,5 @@ export default function HomePage() {
     fetchEvents();
   }, []);
 
-  return (
-    // <TabPanel /> zamijeni običnim ovo nešto ne valja
-    <Grid container spacing={2}>
-      <Schedule data={events} />
-    </Grid>
-  );
+  return <TabPanels events={events} />;
 }

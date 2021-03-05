@@ -11,24 +11,28 @@ import Grid from '@material-ui/core/Grid';
 export default function Schedule({ data, day = 0 }) {
   // const classes = useStyles();
 
-  const filteredEventList = data ? (
-    data
-      .filter((festEvent) => {
-        if (day === 0) return true;
-        else {
-          return festEvent.day === day;
-        }
-      })
-      .map((festEvent) => {
-        return (
-          <Grid key={festEvent.id} item xs={12} sm={6} md={4}>
-            <EventCard data={festEvent} />
-          </Grid>
-        );
-      })
-  ) : (
-    <div>...</div>
-  );
+  const filteredEventList = data
+    ? data
+        .filter((festEvent) => {
+          if (day === 0) return true;
+          else {
+            return festEvent.day === day;
+          }
+        })
+        .map((festEvent) => {
+          return (
+            <Grid key={festEvent.id} item xs={12} sm={6} md={4} lg={3}>
+              <EventCard data={festEvent} />
+            </Grid>
+          );
+        })
+    : null;
 
-  return <React.Fragment>{filteredEventList}</React.Fragment>;
+  return (
+    <React.Fragment>
+      <Grid container spacing={2}>
+        {filteredEventList}
+      </Grid>
+    </React.Fragment>
+  );
 }
