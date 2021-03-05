@@ -1,1 +1,7 @@
 .prettierrc
+/festival-venv
+/account/__pycache__
+/account/migrations/__pycache__
+/login/__pycache__
+/.vscode
+/_OLD_FILES
