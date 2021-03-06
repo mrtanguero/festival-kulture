@@ -5,6 +5,7 @@ import UserCandidateCard from './UserCandidateCard';
 import { adaptUser } from '../utils/helperFunctions';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,11 +50,12 @@ export default function ApprovalList() {
       })
     : null;
 
-  return (
+  return userCandidates.length ? (
     <div className={classes.root}>
+      <Typography variant="h6">Korisnici koji čekaju odobrenje:</Typography>
       <Grid className={classes.gridContainer} container spacing={2}>
         {userCandidatesCards}
       </Grid>
     </div>
-  );
+  ) : null;
 }

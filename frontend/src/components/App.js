@@ -8,6 +8,7 @@ import AboutUsPage from '../pages/AboutUsPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import DashboardPage from '../pages/DashboardPage';
+import CreateEventPage from '../pages/CreateEventPage';
 import Navbar from './Navbar';
 // import User from './user/UserEvent';
 import Logout from './Logout';
@@ -37,6 +38,7 @@ export default function App() {
               render={() => <LoginPage setValue={setValue} setAuth={setAuth} />}
             />
             <Route path="/dashboard" component={DashboardPage} />
+            <Route path="/new-event" component={CreateEventPage} />
             <Route
               path="/logout"
               render={() => <Logout setValue={setValue} setAuth={setAuth} />}
