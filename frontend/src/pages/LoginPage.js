@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import djangoAPI from '../api/djangoAPI';
-import history from '../history';
+import history from '../utils/history';
 
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
@@ -38,10 +38,9 @@ function LoginPage({ setAuth, setValue }) {
       username: values.username,
       password: values.password,
     });
-    console.log(response);
 
     if (response.statusText === 'OK') {
-      await setAuth(response.data);
+      setAuth(response.data);
       localStorage.setItem('auth', JSON.stringify(response.data));
       setValue(0);
       history.push('/');
@@ -99,10 +98,12 @@ function LoginPage({ setAuth, setValue }) {
         </Formik>
 
         <Typography className={classes.formRedirect}>
-          Nemaš nalog <Link to="/register">Registruj se</Link>
+          Nemaš nalog{' '}
+          <Link to="/register" onClick={() => setValue(3)}>
+            Registruj se
+          </Link>
         </Typography>
 
-        {/* Remove comment tags for Google Login */}
         {/* <GoogleeLogin /> */}
       </Paper>
     </Grid>

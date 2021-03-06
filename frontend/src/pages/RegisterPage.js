@@ -7,7 +7,7 @@ import djangoAPI from '../api/djangoAPI';
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
 import Input from '../components/form_controls/input/Input';
-import GoogleeLogin from '../components/google_login/GoogleLogin';
+// import GoogleeLogin from '../components/google_login/GoogleLogin';
 import FormAvatar from '../components/form_controls/avatar/FormAvatar';
 
 const INITIAL_VALUES = {
@@ -81,7 +81,7 @@ const REGISTER_VALIDATION = yup.object({
     .required('Morate potvrditi šifru'),
 });
 
-function Register() {
+function RegisterPage({ setValue }) {
   const classes = useStyles();
 
   const onSubmit = async (values, onSubmitProps) => {
@@ -98,10 +98,10 @@ function Register() {
   return (
     <Grid>
       <Paper elevation={10} className={classes.paperRoot}>
-        <Grid align='center'>
-          <FormAvatar icon='circle' className={classes.formAvatar} />
+        <Grid align="center">
+          <FormAvatar icon="circle" className={classes.formAvatar} />
 
-          <Typography variant='h4' component='h2' className={classes.formTitle}>
+          <Typography variant="h4" component="h2" className={classes.formTitle}>
             REGISTRUJ SE
           </Typography>
         </Grid>
@@ -115,56 +115,56 @@ function Register() {
             return (
               <Form>
                 <Input
-                  type='text'
-                  label='Korisničko ime'
-                  name='username'
-                  icon='user'
-                  placeholder='kimosabe13'
+                  type="text"
+                  label="Korisničko ime"
+                  name="username"
+                  icon="user"
+                  placeholder="kimosabe13"
                 />
 
                 <Input
-                  type='text'
-                  label='Ime'
-                  name='firstName'
-                  icon='face'
-                  placeholder='Ljubiša'
+                  type="text"
+                  label="Ime"
+                  name="firstName"
+                  icon="face"
+                  placeholder="Ljubiša"
                 />
 
                 <Input
-                  type='text'
-                  label='Prezime'
-                  name='lastName'
-                  icon='face'
-                  placeholder='Doe'
+                  type="text"
+                  label="Prezime"
+                  name="lastName"
+                  icon="face"
+                  placeholder="Doe"
                 />
 
                 <Input
-                  type='email'
-                  label='Email'
-                  name='email'
-                  icon='email'
-                  placeholder='test@mail.com'
+                  type="email"
+                  label="Email"
+                  name="email"
+                  icon="email"
+                  placeholder="test@mail.com"
                 />
 
                 <Input
-                  type='password'
-                  label='Šifra'
-                  name='password'
-                  icon='lock'
+                  type="password"
+                  label="Šifra"
+                  name="password"
+                  icon="lock"
                 />
 
                 <Input
-                  type='password'
-                  label='Potvrdite šifru'
-                  name='confirmPassword'
-                  icon='verify'
+                  type="password"
+                  label="Potvrdite šifru"
+                  name="confirmPassword"
+                  icon="verify"
                 />
 
                 <Button
-                  type='submit'
+                  type="submit"
                   disabled={!formik.isValid}
-                  component='button'
-                  variant='contained'
+                  component="button"
+                  variant="contained"
                   fullWidth
                   className={classes.submitBtn}
                 >
@@ -176,14 +176,16 @@ function Register() {
         </Formik>
 
         <Typography className={classes.formRedirect}>
-          Imaš nalog <Link to='/login'>Prijavi se</Link>
+          Imaš nalog{' '}
+          <Link to="/login" onClick={() => setValue(2)}>
+            Prijavi se
+          </Link>
         </Typography>
 
-        {/* Remove coment tags to enable Google Login */}
         {/* <GoogleeLogin /> */}
       </Paper>
     </Grid>
   );
 }
 
-export default Register;
+export default RegisterPage;
