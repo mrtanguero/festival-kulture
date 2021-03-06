@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import djangoAPI from '../api/djangoAPI';
+import history from '../utils/history';
 
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
@@ -85,15 +86,23 @@ function RegisterPage({ setValue }) {
   const classes = useStyles();
 
   const onSubmit = async (values, onSubmitProps) => {
-    console.log(values, onSubmitProps);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
-    // const response = await djangoAPI.post('/register/', {
-    //   'username': values.username,
-    //   'password': values.password
-    // })
-    // console.log(response);
-    // TODO: Home page after valid login (history?)
+    try {
+      const response = await djangoAPI.post('/createModerator/', {
+        username: values.username,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName,
+        email: values.email,
+      });
+      if (response.status === 201) {
+        setValue(0);
+        history.push('/');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <Grid>

@@ -5,15 +5,29 @@ import djangoAPI from '../api/djangoAPI';
 import Schedule from '../components/Schedule';
 import ApprovalList from '../components/ApprovalList';
 
-import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AuthContext from '../context/AuthContext';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '90%',
+    margin: 'auto',
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  scheduleTitle: {
+    marginBottom: 20,
+  },
+}));
 
 export default function Dashboard() {
   const [events, setEvents] = useState(null);
   const auth = useContext(AuthContext);
+  const classes = useStyles();
 
   useEffect(() => {
+    let isMounted = true;
     const fetchEvents = async () => {
       const { data } = await djangoAPI.get('/showEvents');
       const events = data
@@ -23,23 +37,26 @@ export default function Dashboard() {
           if (auth.user.is_superuser) return true;
           return event.host === auth.user.id;
         });
-      setEvents(events);
+      if (isMounted) setEvents(events);
     };
     fetchEvents();
-  }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, [auth.user.id, auth.user.is_superuser]);
 
   return (
-    <Box p={3}>
+    <div className={classes.root}>
       {auth.user.is_superuser ? (
         <React.Fragment>
-          <Typography variant="h5">
-            Moderatori koji čekaju odobrenje:
-          </Typography>
-          <ApprovalList />{' '}
+          <Typography variant="h6">Korisnici koji čekaju odobrenje:</Typography>
+          <ApprovalList />
         </React.Fragment>
       ) : null}
-      <Typography variant="h5">Lista vaših događaja:</Typography>
+      <Typography variant="h6" className={classes.scheduleTitle}>
+        Lista vaših događaja:
+      </Typography>
       <Schedule data={events} />
-    </Box>
+    </div>
   );
 }

@@ -27,6 +27,16 @@ export const adaptEvent = (festEvent) => {
   };
 };
 
+export const adaptUser = (user) => {
+  return {
+    id: user.id,
+    username: user.username,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    email: user.email,
+  };
+};
+
 export const sortEventsFunction = (firstEvent, secondEvent) => {
   if (firstEvent.day > secondEvent.day) {
     return 1;

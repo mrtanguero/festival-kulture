@@ -8,14 +8,18 @@ export default function HomePage() {
   const [events, setEvents] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchEvents = async () => {
       const { data } = await djangoAPI.get('/showEvents');
       const events = data
         .map((event) => adaptEvent(event))
         .sort(sortEventsFunction);
-      setEvents(events);
+      if (isMounted) setEvents(events);
     };
     fetchEvents();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return <TabPanels events={events} />;
