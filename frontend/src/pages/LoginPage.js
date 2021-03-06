@@ -3,23 +3,17 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import djangoAPI from '../api/djangoAPI';
-import history from '../history';
+import history from '../utils/history';
 
 import { useStyles } from './login_register-style';
 import { Button, Typography, Grid, Paper } from '@material-ui/core';
 import Input from '../components/form_controls/input/Input';
-import GoogleeLogin from '../components/google_login/GoogleLogin';
+// import GoogleeLogin from '../components/google_login/GoogleLogin';
 import FormAvatar from '../components/form_controls/avatar/FormAvatar';
 
 const INITIAL_VALUES = {
   username: '',
   password: '',
-};
-
-const PASSWORD_CONFIG = {
-  lowercase: '^(?=.*[a-z])',
-  uppercase: '^(?=.*[A-Z])',
-  number: '^(?=.*[0-9])',
 };
 
 const LOGIN_VALIDATION = yup.object({
@@ -31,28 +25,7 @@ const LOGIN_VALIDATION = yup.object({
         `Imate još ${max - value.length} karaktera na raspolaganju`
     )
     .required('Korisničko ime je obavezno'),
-  password: yup
-    .string()
-    .matches(PASSWORD_CONFIG.lowercase, 'Šira mora imati malo slovo')
-    .matches(PASSWORD_CONFIG.uppercase, 'Šifra mora imati veliko slovo')
-    .matches(PASSWORD_CONFIG.number, 'Šifra mora imati broj')
-    .matches(
-      '^(?=.*[@$!%*#?&])',
-      'Šifra mora imati specijalni karakter (@$!%*#?&)'
-    )
-    .min(
-      8,
-      ({ min, value }) =>
-        `Šifa mora imati minimum 8 znakova, još ${min - value.length} `
-    )
-    .max(
-      16,
-      ({ max, value }) =>
-        `Šifra može imati najviše 16 znakova, unijeli ste ${
-          value.length - max
-        } više`
-    )
-    .required('Morate unijeti šifru'),
+  password: yup.string().required('Morate unijeti šifru'),
 });
 
 function LoginPage({ setAuth, setValue }) {
@@ -65,10 +38,9 @@ function LoginPage({ setAuth, setValue }) {
       username: values.username,
       password: values.password,
     });
-    console.log(response);
 
     if (response.statusText === 'OK') {
-      await setAuth(response.data);
+      setAuth(response.data);
       localStorage.setItem('auth', JSON.stringify(response.data));
       setValue(0);
       history.push('/');
@@ -78,7 +50,7 @@ function LoginPage({ setAuth, setValue }) {
   };
 
   return (
-    <Grid style={{ height: '70vh' }}>
+    <Grid>
       <Paper elevation={10} className={classes.paperRoot}>
         <Grid align="center">
           <FormAvatar icon="lock" className={classes.formAvatar} />
@@ -126,10 +98,13 @@ function LoginPage({ setAuth, setValue }) {
         </Formik>
 
         <Typography className={classes.formRedirect}>
-          Nemaš nalog <Link to="/register">Registruj se</Link>
+          Nemaš nalog{' '}
+          <Link to="/register" onClick={() => setValue(3)}>
+            Registruj se
+          </Link>
         </Typography>
 
-        <GoogleeLogin />
+        {/* <GoogleeLogin /> */}
       </Paper>
     </Grid>
   );

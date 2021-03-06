@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
-import history from '../history';
+import history from '../utils/history';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';

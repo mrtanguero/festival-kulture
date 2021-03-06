@@ -28,17 +28,17 @@ class Event(models.Model):
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE, null=True)
     host = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     event_name = models.CharField(max_length=30)
-    MUZICKI = "Muzicki"
-    FILMSKI = "Filmski"
-    LIKOVNI = "Likovni"
-    PLESNI = "Plesni"
-    KULINARSKI = "Kulinarski"
+    MUZICKI = "muzika"
+    FILMSKI = "film"
+    LIKOVNI = "izložba"
+    PLESNI = "ples"
+    POEZIJA = "poezija"
     CATEGORY_CHOICES = [
-        (MUZICKI, "Muzicki"),
-        (FILMSKI, "Filmski"),
-        (LIKOVNI, "Likovni"),
-        (PLESNI, "Plesni"),
-        (KULINARSKI, "Kulinarski"),
+        (MUZICKI, "muzika"),
+        (FILMSKI, "film"),
+        (LIKOVNI, "izložba"),
+        (PLESNI, "ples"),
+        (POEZIJA, "poezija"),
     ]
     category = models.CharField(max_length=10,
                                 choices=CATEGORY_CHOICES,

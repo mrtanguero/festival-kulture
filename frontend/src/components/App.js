@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { AuthProvider } from '../context/AuthContext';
 import { Router, Route, Switch } from 'react-router-dom';
-import history from '../history';
+import history from '../utils/history';
 
 import HomePage from '../pages/HomePage';
-import AboutUs from '../pages/AboutUs';
+import AboutUsPage from '../pages/AboutUsPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import DashboardPage from '../pages/DashboardPage';
+import CreateEventPage from '../pages/CreateEventPage';
 import Navbar from './Navbar';
 // import User from './user/UserEvent';
 import Logout from './Logout';
+// import UserEvent from './user/UserEvent';
+// import EditEvent from '../components/event_edit/EditEvent';
 
 export default function App() {
   const [auth, setAuth] = useState(
@@ -24,16 +28,17 @@ export default function App() {
           <Navbar value={value} setValue={setValue} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/aboutus" component={AboutUs} />
-            <Route path="/register" component={RegisterPage} />
+            <Route path="/aboutus" component={AboutUsPage} />
+            <Route
+              path="/register"
+              render={() => <RegisterPage setValue={setValue} />}
+            />
             <Route
               path="/login"
               render={() => <LoginPage setValue={setValue} setAuth={setAuth} />}
             />
-            <Route
-              path="/dashboard"
-              render={() => <div>Ovo je user profile page</div>}
-            />
+            <Route path="/dashboard" component={DashboardPage} />
+            <Route path="/new-event" component={CreateEventPage} />
             <Route
               path="/logout"
               render={() => <Logout setValue={setValue} setAuth={setAuth} />}

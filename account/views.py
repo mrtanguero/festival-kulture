@@ -93,7 +93,7 @@ class createModerator(views.APIView):
         if serializar.is_valid():
             serializar.save() 
             subject = "Created Account"
-            message = "Hello " + str(serializar['first_name'].value) + ". Cekajte dok Superuser vas pusti unutra!"
+            message = "Zdravo " + str(serializar['first_name'].value) + ", \n\nPrimili smo Vaš zahtjev, dobićete email čim Vas administrator odobri!\n\nSa poštovanjem,\nTim Festivala"
             from_email= settings.EMAIL_HOST_USER
             to_list = [str(serializar['email'].value)]
             send_mail(subject,message,from_email,to_list,fail_silently=True)
@@ -123,7 +123,7 @@ class deleteUser(views.APIView):
     def get(self,request,pk):
         user= User.objects.get(id=pk)
         subject = "Deleted Account"
-        message = "Hello " +user.first_name +". Bas nam briga sto ides!"
+        message = "Zdravo " + user.first_name +", Vaš nalog je uspješno izbrisan iz naše baze. Do (nadamo se skorog) viđenja!\n\nSa poštovanjem,\nTim Festivala"
         from_email= settings.EMAIL_HOST_USER
         to_list = [user.email]
         send_mail(subject,message,from_email,to_list,fail_silently=True)
@@ -146,7 +146,7 @@ class switchModerator(views.APIView):
             user.save()
             moderator.delete()
             subject = "Activation Email"
-            message = "Hello " +user.first_name +". The owner has confirmed you as a Moderator."
+            message = "Zdravo, " + user.first_name +", \n\nVaš nalog je upravo odobren. Sad možete i Vi kreirati događaje i učestovati u kreiranju našeg i Vašeg festivala!\n\nSa poštovanjem,\nTim Festivala"
             from_email= settings.EMAIL_HOST_USER
             to_list = [user.email]
             send_mail(subject,message,from_email,to_list,fail_silently=True)
